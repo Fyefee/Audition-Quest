@@ -66,6 +66,7 @@ namespace Cafe {
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->timer2 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->main_panel1 = (gcnew System::Windows::Forms::Panel());
@@ -91,11 +92,12 @@ namespace Cafe {
 			// 
 			// main_panel1
 			// 
+			this->main_panel1->BackColor = System::Drawing::Color::White;
 			this->main_panel1->Controls->Add(this->main_button2);
 			this->main_panel1->Controls->Add(this->main_button1);
 			this->main_panel1->Location = System::Drawing::Point(12, 12);
 			this->main_panel1->Name = L"main_panel1";
-			this->main_panel1->Size = System::Drawing::Size(107, 300);
+			this->main_panel1->Size = System::Drawing::Size(107, 89);
 			this->main_panel1->TabIndex = 0;
 			// 
 			// main_button2
@@ -174,7 +176,9 @@ namespace Cafe {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(192)),
 				static_cast<System::Int32>(static_cast<System::Byte>(255)));
-			this->ClientSize = System::Drawing::Size(891, 336);
+			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
+			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->ClientSize = System::Drawing::Size(855, 335);
 			this->Controls->Add(this->sub_panel2);
 			this->Controls->Add(this->sub_panel1);
 			this->Controls->Add(this->main_panel1);
