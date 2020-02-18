@@ -1,2 +1,5 @@
 ﻿  main.c
+D:\ProjectCompro\Compro_Project\main.c(47,16): warning C4553: '==': result of expression not used; did you intend '='?
+D:\ProjectCompro\Compro_Project\main.c(61,11): warning C4013: 'animate' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(73,8): warning C4013: 'kick' undefined; assuming extern returning int
   Jeffyza.vcxproj -> D:\ProjectCompro\Compro_Project\Debug\Jeffyza.exe
