@@ -10,5 +10,5 @@ Faculty of Information Technology King Mongkut's Institute of Technology Ladkrab
 <h2 id='author'>Author :computer::</h2>
 - 61070196 นายวรเชษฐ์ นิ่มเจริญ <br> 
 - 61070230 นางสาวศุภิสรา ชีวนันทพร <br>
-- 61070270 นางสาวอารยะ ทองเล็ก <br>
-- 62070045 นายชวิน โลห์รัตนเสน่ห์ <br><br>
+- 61070270 นางสาวอารยา ทองเล็ก <br>
+- 62070045 นายชวิน โล่ห์รัตนเสน่ห์ <br><br>
