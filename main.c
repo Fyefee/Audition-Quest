@@ -20,6 +20,7 @@ int width = 800, height = 600;
 const int FPS = 60;
 int frameTime = 0, num = 1;
 int stop = 0, keyboard_bug_fix = 1;
+int x = 0, y = 200;
 
 int main(int argc, char* args[]) {
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -30,7 +31,7 @@ int main(int argc, char* args[]) {
 
 	while (running) {
 
-		SDL_Rect menu2 = { 0, 200, 400, 300 };
+		SDL_Rect menu2 = { x, y, 400, 300 };
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_QUIT) {
 				running = 0;
@@ -46,6 +47,12 @@ int main(int argc, char* args[]) {
 					printf("1");
 					frameTime == 99999;
 					break;
+				case SDLK_LEFT:
+					x -= 50;
+					break;
+				case SDLK_RIGHT:
+					x += 50;
+					break;
 				default:
 					break;
 				}
@@ -58,7 +65,7 @@ int main(int argc, char* args[]) {
 		if (frameTime == 100000 && stop == 0) {
 			SDL_RenderClear(renderer);
 			frameTime = 0;
-			animate(num, 0);
+			animate(num, x, y);
 			if (num == 3) {
 				num = 1;
 			}
@@ -90,8 +97,8 @@ int main(int argc, char* args[]) {
 
 }
 
-int animate(num, positionx) {
-	SDL_Rect menu2 = { positionx, 200, 400, 300 };
+int animate(num, x, y) {
+	SDL_Rect menu2 = { x, y, 400, 300 };
 
 	switch (num){
 	case 1:
