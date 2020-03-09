@@ -72,11 +72,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
-    <IncludePath>D:\ProjectCompro\Jeffyza\SDL2-2.0.10\include;D:\ProjectCompro\Jeffyza\SDL2_image-2.0.5\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\ProjectCompro\Jeffyza\SDL2-2.0.10\lib\x86;D:\ProjectCompro\Jeffyza\SDL2_image-2.0.5\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\ProjectCompro\Compro_Project\SDL2_ttf-2.0.15\include;D:\ProjectCompro\Compro_Project\SDL2-2.0.10\include;D:\ProjectCompro\Compro_Project\SDL2_image-2.0.5\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\ProjectCompro\Compro_Project\SDL2_ttf-2.0.15\lib\x86;D:\ProjectCompro\Compro_Project\SDL2-2.0.10\lib\x86;D:\ProjectCompro\Compro_Project\SDL2_image-2.0.5\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\ProjectCompro\Compro_Project\SDL2_ttf-2.0.15\include;D:\ProjectCompro\Compro_Project\SDL2-2.0.10\include;D:\ProjectCompro\Compro_Project\SDL2_image-2.0.5\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\ProjectCompro\Compro_Project\SDL2_ttf-2.0.15\lib\x64;D:\ProjectCompro\Compro_Project\SDL2-2.0.10\lib\x64;D:\ProjectCompro\Compro_Project\SDL2_image-2.0.5\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -94,7 +96,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -107,6 +109,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
