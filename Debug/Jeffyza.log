@@ -1,4 +1,5 @@
 ﻿  main.c
-D:\ProjectCompro\Compro_Project\main.c(121,17): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(62,10): warning C4013: 'bar' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(125,17): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
 D:\ProjectCompro\Compro_Project\main.c(45,20): warning C4101: 'currentTime': unreferenced local variable
   Jeffyza.vcxproj -> D:\ProjectCompro\Compro_Project\Debug\Jeffyza.exe
