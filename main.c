@@ -59,6 +59,7 @@ int main(int argc, char* args[]) {
 						printf("Yes\n");
 						arrow_stop = 0;
 						SDL_RenderClear(renderer);
+						bar(boxx);
 						SDL_RenderPresent(renderer);
 						SDL_Delay(delay);
 					}
@@ -71,6 +72,7 @@ int main(int argc, char* args[]) {
 						printf("Yes\n");
 						arrow_stop = 0;
 						SDL_RenderClear(renderer);
+						bar(boxx);
 						SDL_RenderPresent(renderer);
 						SDL_Delay(delay);
 					}
@@ -83,6 +85,7 @@ int main(int argc, char* args[]) {
 						printf("Yes\n");
 						arrow_stop = 0;
 						SDL_RenderClear(renderer);
+						bar(boxx);
 						SDL_RenderPresent(renderer);
 						SDL_Delay(delay);
 					}
@@ -95,6 +98,7 @@ int main(int argc, char* args[]) {
 						printf("Yes\n");
 						arrow_stop = 0;
 						SDL_RenderClear(renderer);
+						bar(boxx);
 						SDL_RenderPresent(renderer);
 						SDL_Delay(delay);
 					}
@@ -121,11 +125,17 @@ int main(int argc, char* args[]) {
 			srand(time(0));
 			arrow_random = rand() % 4;
 			arrow(arrow_random);
+			bar(boxx);
 			SDL_RenderPresent(renderer);
-
 			arrow_stop = 1;
 		}
-
+		if (boxx == 0) {
+			int delay2 = 1000000000 / 60 - SDL_GetTicks() + SDL_GetTicks();
+			SDL_Delay(delay2);
+		}
+		if (frameTime % 40000 == 0) {
+			boxx -= 10;
+		}
 		
 	}
 	SDL_DestroyRenderer(renderer); // ทําลายตัว renderer
@@ -168,6 +178,14 @@ int arrow(num) {
 
 }
 
+int bar(x) {
+	SDL_Rect box = { 0, 500, x, 100 };
+	box_surface = IMG_Load("image/yellow.png");
+	box_texture = SDL_CreateTextureFromSurface(renderer, box_surface);
+	SDL_RenderCopy(renderer, box_texture, NULL, &box);
+	return 0;
+}
+
 int animate(num, x, y, boxx) {
 	SDL_Rect menu2 = { x, y, 700, 300 };
 	SDL_Rect menu1 = { 0, 0, 800, 600 };
@@ -178,9 +196,6 @@ int animate(num, x, y, boxx) {
 	ingame_bg2_texture = SDL_CreateTextureFromSurface(renderer, ingame_bg2_surface);
 	SDL_RenderCopy(renderer, ingame_bg2_texture, NULL, &menu1);
 
-	//box_surface = IMG_Load("image/yellow.png");
-	//box_texture = SDL_CreateTextureFromSurface(renderer, box_surface);
-	//SDL_RenderCopy(renderer, box_texture, NULL, &box);
 
 	switch (num){
 	case 1:
