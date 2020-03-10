@@ -1,5 +1,8 @@
 ﻿  main.c
-D:\ProjectCompro\Compro_Project\main.c(62,10): warning C4013: 'bar' undefined; assuming extern returning int
-D:\ProjectCompro\Compro_Project\main.c(125,17): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(45,20): warning C4101: 'currentTime': unreferenced local variable
+D:\ProjectCompro\Compro_Project\main.c(89,11): warning C4013: 'bar' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(90,20): warning C4013: 'score_ingame' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(179,17): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(195,10): warning C4013: 'arrow' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(51,20): warning C4101: 'currentTime': unreferenced local variable
+D:\ProjectCompro\Compro_Project\main.c(283): warning C4716: 'score_ingame': must return a value
   Jeffyza.vcxproj -> D:\ProjectCompro\Compro_Project\Debug\Jeffyza.exe
