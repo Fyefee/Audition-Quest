@@ -14,6 +14,17 @@ SDL_Window* window;
 SDL_Renderer* renderer;
 SDL_Event event;
 
+//Create variable for menu's background
+SDL_Surface* menu_bg_surface = NULL;
+SDL_Texture* menu_bg_texture = NULL;
+
+//Create variable for main menu's button
+SDL_Surface* menu_main_button_surface = NULL;
+SDL_Texture* menu_main_button_texture = NULL;
+
+//Create variable for menu's selector
+SDL_Surface* menu_selector_surface = NULL;
+SDL_Texture* menu_selector_texture = NULL;
 
 SDL_Surface* ingame_bg_surface = NULL;
 SDL_Texture* ingame_bg_texture = NULL; 
@@ -28,138 +39,131 @@ SDL_Surface* arrow_surface = NULL;
 SDL_Texture* arrow_texture = NULL;
 
 int running;
-int width = 1200, height = 720;
+int width = 1200, height = 720;    //Create width and height of program
 
 const int FPS = 60;
-int frameTime = 0, frameTime2 = 0;
+int frameTime = 0;    //Create frametime
 int x = 0, y = 200;
 int boxx = 800;
 int left = 0;
 int check = 25000;
 int arrow_random = 0, arrow_stop = 0;
 int arrow_running = 0;
+int menu_bg_count = 0 , menu_main_on = 1, menu_bg = 1, menu_how = 0, menu_diffi = 0, menu_info_on = 0;    //Create menu checker
+int selector_main = 1, selector_diff = 1;    //Create Selector in menu
 
 int score = 0, fail = 0;
 
 int main(int argc, char* args[]) {
-	TTF_Init();
-	SDL_Init(SDL_INIT_EVERYTHING);
+	TTF_Init();                              //SDL_ttf init
+	SDL_Init(SDL_INIT_EVERYTHING);           //SDL init
 	IMG_Init(IMG_INIT_PNG);
 	window = SDL_CreateWindow("Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	running = 1;
+	running = 1;   //set running to true
 	int lastTime = 0, currentTime;
 	int delay_diff = 60000;
 	int delay = delay_diff / 60 - SDL_GetTicks() + SDL_GetTicks();
 
-	SDL_Rect bg = { 0, 0, 1200, 720 };
-	ingame_bg_surface = IMG_Load("background/img/frame2/frame_0_delay-0.1s.png");
-	ingame_bg_texture = SDL_CreateTextureFromSurface(renderer, ingame_bg_surface);
-
-	TTF_Font* sans = TTF_OpenFont("font/HACKED.ttf", 100);
-	SDL_Color black = { 0, 0, 0 };
+	TTF_Font* sans = TTF_OpenFont("font/HACKED.ttf", 100);   //Load font Hacked
+	SDL_Color black = { 0, 0, 0 };   //Set black color
 
 	SDL_Surface* message_surface_enter = TTF_RenderText_Solid(sans, "Press \"Enter\" to start", black);
 	SDL_Texture* message_texture_enter = SDL_CreateTextureFromSurface(renderer, message_surface_enter);
 	SDL_Rect message_rect = { 150, 300, 900, 120 };
 
-	SDL_Surface* message_surface_score = TTF_RenderText_Solid(sans, "xxxxxx", black);
-	SDL_Texture* message_texture_score = SDL_CreateTextureFromSurface(renderer, message_surface_score);
-	SDL_Rect message_score_rect = { 250, 450, 200, 60 };
-	SDL_Rect message_score_ingame_rect = { 0, 0, 200, 60 };
-
-	char score_str[10000];
-
 	while (running) {
 
 		while (SDL_PollEvent(&event)) {
-			if (event.type == SDL_QUIT) {
+			if (event.type == SDL_QUIT) {   //If click close window turn off program
 				running = 0;
 			}
-			else if (event.type == SDL_KEYDOWN) {
+			else if (event.type == SDL_KEYDOWN) {    //Check Keyboard Event
 				switch (event.key.keysym.sym){
-				case SDLK_UP:
-					if (arrow_running == 1) {
-						if (arrow_random == 0) {
-							printf("Yes\n");
-							arrow_stop = 0;
-							score += 1;
-							SDL_RenderClear(renderer);
-							SDL_RenderCopy(renderer, ingame_bg_texture, NULL, &bg);
-							bar(boxx);
-							score_ingame(score, fail);
-							SDL_RenderPresent(renderer);
-							SDL_Delay(delay);
+				case SDLK_UP:    //Check button arrow up
+					if (menu_main_on == 1) {   //For move selector in main menu
+						if (selector_main == 2 || selector_main == 3 || selector_main == 4) {
+							selector_main--;
 						}
-						else {
-							printf("No\n");
-							fail += 1;
+					}
+
+					else if (menu_diffi == 1) {   //For move selector in difficulty selector
+						if (selector_diff == 2 || selector_diff == 3 || selector_diff == 4) {
+							selector_diff--;
 						}
 					}
 					break;
-				case SDLK_DOWN:
-					if (arrow_running == 1) {
-						if (arrow_random == 1) {
-							printf("Yes\n");
-							arrow_stop = 0;
-							score += 1;
-							SDL_RenderClear(renderer);
-							SDL_RenderCopy(renderer, ingame_bg_texture, NULL, &bg);
-							bar(boxx);
-							score_ingame(score, fail);
-							SDL_RenderPresent(renderer);
-							SDL_Delay(delay);
+				case SDLK_DOWN:  //Check button arrow down
+					if (menu_main_on == 1) {   //For move selector in main menu
+						if (selector_main == 1 || selector_main == 2 || selector_main == 3) {
+							selector_main++;
 						}
-						else {
-							printf("No\n");
-							fail += 1;
+					}
+
+					else if (menu_diffi == 1) {  //For move selector in difficulty selector
+						if (selector_diff == 1 || selector_diff == 2 || selector_diff == 3) {
+							selector_diff++;
 						}
 					}
 					break;
 				case SDLK_LEFT:
-					if (arrow_running == 1) {
-						if (arrow_random == 2) {
-							printf("Yes\n");
-							arrow_stop = 0;
-							score += 1;
-							SDL_RenderClear(renderer);
-							SDL_RenderCopy(renderer, ingame_bg_texture, NULL, &bg);
-							bar(boxx);
-							score_ingame(score, fail);
-							SDL_RenderPresent(renderer);
-							SDL_Delay(delay);
-						}
-						else {
-							printf("No\n");
-							fail += 1;
-						}
-					}
+					
 					break;
 				case SDLK_RIGHT:
-					if (arrow_running == 1) {
-						if (arrow_random == 3) {
-							printf("Yes\n");
-							arrow_stop = 0;
-							score += 1;
-							SDL_RenderClear(renderer);
-							SDL_RenderCopy(renderer, ingame_bg_texture, NULL, &bg);
-							bar(boxx);
-							score_ingame(score, fail);
-							SDL_RenderPresent(renderer);
-							SDL_Delay(delay);
-						}
-						else {
-							printf("No\n");
-							fail += 1;
-						}
-					}
+					
 					break;
-				case SDLK_RETURN:
-					if (arrow_running == 0) {
-						arrow_running = 1;
+				case SDLK_RETURN:   //Check button ENTER
+
+					if (menu_main_on == 1) {    //Check where selector in main menu is
+						switch (selector_main)
+						{
+							case 1:
+								menu_diffi = 1;
+								menu_main_on = 0;
+								break;
+							case 2:
+								menu_how = 1;
+								menu_main_on = 0;
+								break;
+							case 3:
+								menu_info_on = 1;
+								menu_main_on = 0;
+								break;
+							case 4:
+								running = 0;
+								break;
+							default:
+								break;
+						}
+					} 
+
+					else if (menu_how == 1) {   //For return to main menu in how to play screen
+						menu_how = 0;
+						menu_main_on = 1;
 					}
-					fail = 0;
-					score = 0;
+
+					else if (menu_info_on == 1) {   //For return to main menu in info screen
+						menu_info_on = 0;
+						menu_main_on = 1;
+					}
+
+					else if (menu_diffi == 1) {    //Check where selector in diffulty select is
+						switch (selector_diff)
+						{
+						case 1:
+							break;
+						case 2:
+							break;
+						case 3:
+							break;
+						case 4:
+							menu_diffi = 0;
+							menu_main_on = 1;
+							break;
+						default:
+							break;
+						}
+					}
 					break;
 				default:
 					break;
@@ -174,38 +178,30 @@ int main(int argc, char* args[]) {
 
 		frameTime++;
 		
-		if (arrow_stop == 0) {
-			SDL_RenderClear(renderer);
-			srand(time(0));
-			arrow_random = rand() % 4;
-			arrow_stop = 1;
-		}
-		if (boxx == 0) {
-			//int delay2 = 1000000000 / 60 - SDL_GetTicks() + SDL_GetTicks();
-			//SDL_Delay(delay2);
-			boxx = 800;
-			arrow_running = 0;
-		}
-		if (frameTime % 20000 == 0) {
-			SDL_RenderClear(renderer);
-			SDL_RenderCopy(renderer, ingame_bg_texture, NULL, &bg);
-			if (arrow_running == 1) {
-				boxx -= 10;
-				bar(boxx);
-				arrow(arrow_random);
-				score_ingame(score, fail);
-
+		if (frameTime % 35000 == 0 && menu_bg == 1) {  //render background and function in main menu
+			SDL_RenderClear(renderer);  //clear renderer
+			if (menu_bg_count > 7) {   //check for loop background
+				menu_bg_count = 0;
 			}
-			if (arrow_running == 0) {
-				//SDL_RenderCopy(renderer, text_enter_texture, NULL, &text);
-				SDL_RenderCopy(renderer, message_texture_enter, NULL, &message_rect);
-
-				sprintf(score_str, "Score : %01d", score-fail);
-				message_surface_score = TTF_RenderText_Solid(sans, score_str, black);
-				message_texture_score = SDL_CreateTextureFromSurface(renderer, message_surface_score);
-				SDL_RenderCopy(renderer, message_texture_score, NULL, &message_score_rect);
+			menu(menu_bg_count);  //background render function
+			if (menu_main_on == 1) {  //render button in mainmenu
+				menu_main_button(selector_main);
 			}
-			SDL_RenderPresent(renderer);
+			
+			if (menu_how == 1) {   //render how to play menu
+				menu_howtoplay();
+			}
+
+			if (menu_diffi == 1) {  //render difficulty select menu
+				menu_diff(selector_diff);
+			}
+
+			if (menu_info_on == 1) {  //render info menu
+				menu_info();
+			}
+
+			menu_bg_count++;  //move background
+			SDL_RenderPresent(renderer);  //render
 		}
 		
 	}
@@ -280,4 +276,151 @@ int score_ingame(score, fail) {
 	SDL_Texture* message_texture_fail = SDL_CreateTextureFromSurface(renderer, message_surface_fail);
 	SDL_Rect message_fail_ingame_rect = { 50, 100, 150, 60 };
 	SDL_RenderCopy(renderer, message_texture_fail, NULL, &message_fail_ingame_rect);
+}
+	
+int menu(num) {   //render background
+
+	SDL_Rect menu_bg_rect = { 0, 0, 1200, 720 };   //Create rect for insert background
+
+	switch (num) {
+
+		case 0:   //render background frame 0
+			menu_bg_surface = IMG_Load("background/img/frame2/menu_frame_0.png");
+			menu_bg_texture = SDL_CreateTextureFromSurface(renderer, menu_bg_surface);
+			SDL_RenderCopy(renderer, menu_bg_texture, NULL, &menu_bg_rect);
+			break;
+
+		case 1:   //render background frame 1
+			menu_bg_surface = IMG_Load("background/img/frame2/menu_frame_1.png");
+			menu_bg_texture = SDL_CreateTextureFromSurface(renderer, menu_bg_surface);
+			SDL_RenderCopy(renderer, menu_bg_texture, NULL, &menu_bg_rect);
+			break;
+
+		case 2:   //render background frame 2
+			menu_bg_surface = IMG_Load("background/img/frame2/menu_frame_2.png");
+			menu_bg_texture = SDL_CreateTextureFromSurface(renderer, menu_bg_surface);
+			SDL_RenderCopy(renderer, menu_bg_texture, NULL, &menu_bg_rect);
+			break;
+
+		case 3:   //render background frame 3
+			menu_bg_surface = IMG_Load("background/img/frame2/menu_frame_3.png");
+			menu_bg_texture = SDL_CreateTextureFromSurface(renderer, menu_bg_surface);
+			SDL_RenderCopy(renderer, menu_bg_texture, NULL, &menu_bg_rect);
+			break;
+
+		case 4:   //render background frame 4
+			menu_bg_surface = IMG_Load("background/img/frame2/menu_frame_4.png");
+			menu_bg_texture = SDL_CreateTextureFromSurface(renderer, menu_bg_surface);
+			SDL_RenderCopy(renderer, menu_bg_texture, NULL, &menu_bg_rect);
+			break;
+
+		case 5:   //render background frame 5
+			menu_bg_surface = IMG_Load("background/img/frame2/menu_frame_5.png");
+			menu_bg_texture = SDL_CreateTextureFromSurface(renderer, menu_bg_surface);
+			SDL_RenderCopy(renderer, menu_bg_texture, NULL, &menu_bg_rect);
+			break;
+
+		case 6:   //render background frame 6
+			menu_bg_surface = IMG_Load("background/img/frame2/menu_frame_6.png");
+			menu_bg_texture = SDL_CreateTextureFromSurface(renderer, menu_bg_surface);
+			SDL_RenderCopy(renderer, menu_bg_texture, NULL, &menu_bg_rect);
+			break;
+
+		case 7:   //render background frame 7
+			menu_bg_surface = IMG_Load("background/img/frame2/menu_frame_7.png");
+			menu_bg_texture = SDL_CreateTextureFromSurface(renderer, menu_bg_surface);
+			SDL_RenderCopy(renderer, menu_bg_texture, NULL, &menu_bg_rect);
+			break;
+
+		default:
+			break;
+	}
+	return 0;
+}
+
+int menu_main_button(selector) {  //Render button in main menu
+
+	int y = 0;
+	switch (selector)  //check where selector is
+	{
+		case 1:
+			y = 240;
+			break;
+		case 2:
+			y = 360;
+			break;
+		case 3:
+			y = 450;
+			break;
+		case 4:
+			y = 560;
+			break;
+		default:
+			break;
+	}
+
+	SDL_Rect menu_main_button_rect = { 0, 0, 1200, 720 };  //Create rect for insert button
+	SDL_Rect menu_selector_rect = { 270, y, 163, 128 };  //Create rect for insert selector
+
+	menu_selector_surface = IMG_Load("image/arrow_cool/arrow_cool_right.png");  //render selector
+	menu_selector_texture = SDL_CreateTextureFromSurface(renderer, menu_selector_surface);
+	SDL_RenderCopy(renderer, menu_selector_texture, NULL, &menu_selector_rect);
+
+	menu_main_button_surface = IMG_Load("image/menu_main_button.png");   //render button
+	menu_main_button_texture = SDL_CreateTextureFromSurface(renderer, menu_main_button_surface);
+	SDL_RenderCopy(renderer, menu_main_button_texture, NULL, &menu_main_button_rect);
+
+}
+
+int menu_howtoplay() {
+
+	SDL_Rect menu_main_button_rect = { 0, 0, 1200, 720 };  //Create rect for insert How to play
+
+	menu_main_button_surface = IMG_Load("image/menu_howtoplay.png");  //Render How To Play
+	menu_main_button_texture = SDL_CreateTextureFromSurface(renderer, menu_main_button_surface);
+	SDL_RenderCopy(renderer, menu_main_button_texture, NULL, &menu_main_button_rect);
+
+}
+
+int menu_info() {   //Render Info menu
+
+	SDL_Rect menu_main_button_rect = { 0, 0, 1200, 720 };   //Create rect for insert Info
+
+	menu_main_button_surface = IMG_Load("image/menu_info.png");   //Render Info
+	menu_main_button_texture = SDL_CreateTextureFromSurface(renderer, menu_main_button_surface);
+	SDL_RenderCopy(renderer, menu_main_button_texture, NULL, &menu_main_button_rect);
+}
+
+int menu_diff(selector) {
+
+	int y = 0;  
+	switch (selector)  //Check where selector is
+	{
+	case 1:
+		y = 90;
+		break;
+	case 2:
+		y = 240;
+		break;
+	case 3:
+		y = 390;
+		break;
+	case 4:
+		y = 570;
+		break;
+	default:
+		break;
+	}
+
+	SDL_Rect menu_main_button_rect = { 0, 0, 1200, 720 };  //Create rect for insert button
+	SDL_Rect menu_selector_rect = { 200, y, 163, 128 };   //Create rect for insert selector
+
+	menu_selector_surface = IMG_Load("image/arrow_cool/arrow_cool_right.png");   //Render Selector
+	menu_selector_texture = SDL_CreateTextureFromSurface(renderer, menu_selector_surface);
+	SDL_RenderCopy(renderer, menu_selector_texture, NULL, &menu_selector_rect);
+
+	menu_main_button_surface = IMG_Load("image/menu_diff.png");   //Render Button
+	menu_main_button_texture = SDL_CreateTextureFromSurface(renderer, menu_main_button_surface);
+	SDL_RenderCopy(renderer, menu_main_button_texture, NULL, &menu_main_button_rect);
+
 }

@@ -1,8 +1,13 @@
 ﻿  main.c
-D:\ProjectCompro\Compro_Project\main.c(89,11): warning C4013: 'bar' undefined; assuming extern returning int
-D:\ProjectCompro\Compro_Project\main.c(90,20): warning C4013: 'score_ingame' undefined; assuming extern returning int
-D:\ProjectCompro\Compro_Project\main.c(179,17): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(195,10): warning C4013: 'arrow' undefined; assuming extern returning int
-D:\ProjectCompro\Compro_Project\main.c(51,20): warning C4101: 'currentTime': unreferenced local variable
-D:\ProjectCompro\Compro_Project\main.c(283): warning C4716: 'score_ingame': must return a value
+D:\ProjectCompro\Compro_Project\main.c(186,8): warning C4013: 'menu' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(188,21): warning C4013: 'menu_main_button' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(192,19): warning C4013: 'menu_howtoplay' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(196,14): warning C4013: 'menu_diff' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(200,14): warning C4013: 'menu_info' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(64,20): warning C4101: 'currentTime': unreferenced local variable
+D:\ProjectCompro\Compro_Project\main.c(279): warning C4716: 'score_ingame': must return a value
+D:\ProjectCompro\Compro_Project\main.c(382): warning C4716: 'menu_howtoplay': must return a value
+D:\ProjectCompro\Compro_Project\main.c(373): warning C4716: 'menu_main_button': must return a value
+D:\ProjectCompro\Compro_Project\main.c(424): warning C4716: 'menu_diff': must return a value
+D:\ProjectCompro\Compro_Project\main.c(390): warning C4716: 'menu_info': must return a value
   Jeffyza.vcxproj -> D:\ProjectCompro\Compro_Project\Debug\Jeffyza.exe
