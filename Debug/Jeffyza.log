@@ -1,7 +1,7 @@
 ﻿  main.c
-D:\ProjectCompro\Compro_Project\main.c(278,38): warning C4013: 'menu_main_button' undefined; assuming extern returning int
-D:\ProjectCompro\Compro_Project\main.c(289,31): warning C4013: 'menu_diff' undefined; assuming extern returning int
-D:\ProjectCompro\Compro_Project\main.c(330,53): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(97,20): warning C4101: 'currentTime': unreferenced local variable
-D:\ProjectCompro\Compro_Project\main.c(419): warning C4716: 'score_ingame': must return a value
+D:\ProjectCompro\Compro_Project\main.c(330,38): warning C4013: 'menu_main_button' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(341,31): warning C4013: 'menu_diff' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(395,54): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(116,20): warning C4101: 'currentTime': unreferenced local variable
+D:\ProjectCompro\Compro_Project\main.c(517): warning C4716: 'score_ingame': must return a value
   Jeffyza.vcxproj -> D:\ProjectCompro\Compro_Project\Debug\Jeffyza.exe

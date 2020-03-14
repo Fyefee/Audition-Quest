@@ -45,6 +45,9 @@ SDL_Texture* easy_1_mission_texture = NULL;
 SDL_Surface* easy_background_surface = NULL;
 SDL_Texture* easy_background_texture = NULL;
 
+SDL_Surface* easy_background_idle_surface = NULL;
+SDL_Texture* easy_background_idle_texture = NULL;
+
 SDL_Surface* monster_easy_1_surface = NULL;
 SDL_Texture* monster_easy_1_texture = NULL;
 
@@ -53,6 +56,21 @@ SDL_Texture* health_bar_texture = NULL;
 
 SDL_Surface* health_bar_bg_surface = NULL;
 SDL_Texture* health_bar_bg_texture = NULL;
+
+SDL_Surface* slime_surface = NULL;
+SDL_Texture* slime_texture = NULL;
+
+SDL_Surface* slime_attacked_surface = NULL;
+SDL_Texture* slime_attacked_texture = NULL;
+
+SDL_Surface* text_start_attack_surface = NULL;
+SDL_Texture* text_start_attack_texture = NULL;
+
+SDL_Surface* attack_surface = NULL;
+SDL_Texture* attack_texture = NULL;
+
+SDL_Surface* attack_2_surface = NULL;
+SDL_Texture* attack_2_texture = NULL;
 
 // Test
 SDL_Surface* ingame_bg2_surface = NULL;
@@ -77,14 +95,15 @@ int arrow_random = 0, arrow_stop = 0;
 int arrow_running = 0;
 int menu_bg_count = 0 , menu_main_on = 1, menu_bg = 1, menu_how = 0, menu_diffi = 0, menu_info_on = 0;    //Create menu checker
 int selector_main = 1, selector_diff = 1;    //Create Selector in menu
-int mission_on = 0, easy_1_mission = 0, easy = 0, easy_1 = 0, easy_bg_count = 0, character_count = 0;
-int monster_health = 0;
+int mission_on = 0, easy_1_mission = 0, easy = 0, easy_1 = 0, easy_bg_count = 0, character_count = 0, monster_count = 0;
+int monster_health = 0, turn_left = 0;
 int health_bar = 0;
-char health[100];
+char health[100], turn[100];
+int easy_1_idle = 0, attack_on = 0;
 
 int score = 0, fail = 0;
 
-int pos_x = 0, pos_x_cha = 0;
+int pos_x = 0, pos_x_cha = 0, pos_x_mon = 0, pos_attack = 250;
 int pos_selector_y = 0;
 
 int main(int argc, char* args[]) {
@@ -131,6 +150,9 @@ int main(int argc, char* args[]) {
 	character_surface = IMG_Load("image/human_1/human_idle.png");   //Render Button
 	character_texture = SDL_CreateTextureFromSurface(renderer, character_surface);
 
+	slime_surface = IMG_Load("image/slime/slime_idle_sprite.png");   //Render Button
+	slime_texture = SDL_CreateTextureFromSurface(renderer, slime_surface);
+
 	health_bar_surface = IMG_Load("image/yellow.png");   //Render Button
 	health_bar_texture = SDL_CreateTextureFromSurface(renderer, health_bar_surface);
 
@@ -140,6 +162,20 @@ int main(int argc, char* args[]) {
 	SDL_Surface* message_surface_health = TTF_RenderText_Solid(sans, "xxxxxx", black);
 	SDL_Texture* message_texture_health = SDL_CreateTextureFromSurface(renderer, message_surface_health);
 	SDL_Rect message_health_ingame_rect = { 750, 110, 240, 40 };
+
+	SDL_Surface* message_surface_turn = TTF_RenderText_Solid(sans, "xxxxxx", black);
+	SDL_Texture* message_texture_turn = SDL_CreateTextureFromSurface(renderer, message_surface_turn);
+	SDL_Rect message_turn_ingame_rect = { 200, 110, 180, 40 };
+
+	text_start_attack_surface = IMG_Load("image/text/attack_easy.png");   //Render Button
+	text_start_attack_texture = SDL_CreateTextureFromSurface(renderer, text_start_attack_surface);
+	SDL_Rect start_attack_rect = { 0, 0, 1200, 720 };
+
+	attack_surface = IMG_Load("image/human_1/while_attack.png");   //Render Button
+	attack_texture = SDL_CreateTextureFromSurface(renderer, attack_surface);
+
+	attack_2_surface = IMG_Load("image/human_1/human_attack_sprite.png");   //Render Button
+	attack_2_texture = SDL_CreateTextureFromSurface(renderer, attack_2_surface);
 
 	while (running) {
 
@@ -244,6 +280,22 @@ int main(int argc, char* args[]) {
 							easy_1 = 1;
 							monster_health = 30;
 							sprintf(health, "Monster HP : %01d", monster_health);
+							message_surface_health = TTF_RenderText_Solid(sans, health, white);
+							message_texture_health = SDL_CreateTextureFromSurface(renderer, message_surface_health);
+
+							turn_left = 3;
+							sprintf(turn, "Turn Left : %01d", turn_left);
+							message_surface_turn = TTF_RenderText_Solid(sans, turn, white);
+							message_texture_turn = SDL_CreateTextureFromSurface(renderer, message_surface_turn);
+
+							easy_1_idle = 1;
+						}
+
+						else if (easy_1_idle == 1) {
+							easy_1_idle = 0;
+							attack_on = 1;
+							pos_attack = 250;
+							character_count = 0;
 						}
 					}
 					break;
@@ -310,10 +362,13 @@ int main(int argc, char* args[]) {
 			if (easy_1_mission == 1) {
 				SDL_RenderCopy(renderer, easy_1_mission_texture, NULL, &mission_rect);
 			}
+
+			if (easy_1 == 1 && monster_health == 0) {
+			}
 			if (easy_1 == 1) {
 
-				if (character_count == 11) {
-					character_count = 0;
+				if (monster_count == 9) {
+					monster_count = 0;
 				}
 
 				pos_x = easy_bg_count * 672;
@@ -321,27 +376,70 @@ int main(int argc, char* args[]) {
 				SDL_Rect easy_bg_srcrect = { pos_x ,0, 672, 378 };
 				SDL_RenderCopy(renderer, easy_background_texture, &easy_bg_srcrect, &easy_bg_rect);
 
-				pos_x_cha = character_count * 91;
-				SDL_Rect character_rect = { 250, 440, 158, 187 };
-				SDL_Rect character_srcrect = { pos_x_cha, 0, 91, 113 };
-				SDL_RenderCopy(renderer, character_texture, &character_srcrect, &character_rect);
-				character_count++;
+				pos_x_mon = monster_count * 80;
+				SDL_Rect slime_rect = { 830, 490, 140, 140 };
+				SDL_Rect slime_srcrect = { pos_x_mon, 0, 80, 80 };
+				SDL_RenderCopy(renderer, slime_texture, &slime_srcrect, &slime_rect);
+				monster_count++;
 
-				health_bar = ((double)monster_health / 30) * 800;
-				SDL_Rect health_bg_rect = { 200, 150, 800, 80 };
-				SDL_Rect health_rect = { 200, 150, health_bar, 80 };
-				SDL_RenderCopy(renderer, health_bar_bg_texture, NULL, &health_bg_rect);
-				SDL_RenderCopy(renderer, health_bar_texture, NULL, &health_rect);
-				message_surface_health = TTF_RenderText_Solid(sans, health, white);
-				message_texture_health = SDL_CreateTextureFromSurface(renderer, message_surface_health);
-				SDL_RenderCopy(renderer, message_texture_health, NULL, &message_health_ingame_rect);
+				if (easy_1_idle == 1) {
+					if (character_count == 11) {
+						character_count = 0;
+					}
+					pos_x_cha = character_count * 91;
+					SDL_Rect character_rect = { 250, 440, 158, 187 };
+					SDL_Rect character_srcrect = { pos_x_cha, 0, 91, 113 };
+					SDL_RenderCopy(renderer, character_texture, &character_srcrect, &character_rect);
+					character_count++;
+
+					health_bar = ((double)monster_health / 30) * 800;
+					SDL_Rect health_bg_rect = { 200, 150, 800, 80 };
+					SDL_Rect health_rect = { 200, 150, health_bar, 80 };
+					SDL_RenderCopy(renderer, health_bar_bg_texture, NULL, &health_bg_rect);
+					SDL_RenderCopy(renderer, health_bar_texture, NULL, &health_rect);
+
+
+					SDL_RenderCopy(renderer, message_texture_health, NULL, &message_health_ingame_rect);
+					SDL_RenderCopy(renderer, message_texture_turn, NULL, &message_turn_ingame_rect);
+
+					SDL_RenderCopy(renderer, text_start_attack_texture, NULL, &start_attack_rect);
+				}
+			}
+			if (attack_on == 1) {
+				if (pos_attack >= 750) {
+					if (character_count == 15) {
+						character_count = 0;
+						attack_on = 0;
+						easy_1_idle = 1;
+						
+						monster_health -= 10;
+						sprintf(health, "Monster HP : %01d", monster_health);
+						message_surface_health = TTF_RenderText_Solid(sans, health, white);
+						message_texture_health = SDL_CreateTextureFromSurface(renderer, message_surface_health);
+
+						turn_left -= 1;
+						sprintf(turn, "Turn Left : %01d", turn_left);
+						message_surface_turn = TTF_RenderText_Solid(sans, turn, white);
+						message_texture_turn = SDL_CreateTextureFromSurface(renderer, message_surface_turn);
+					}
+					pos_x_cha = character_count * 154;
+					SDL_Rect character_rect = { 720, 360, 248, 297 };
+					SDL_Rect character_srcrect = { pos_x_cha, 0, 154, 181 };
+					SDL_RenderCopy(renderer, attack_2_texture, &character_srcrect, &character_rect);
+
+					character_count++;
+
+				}
+				if (pos_attack < 750) {
+					SDL_Rect character_rect = { pos_attack, 440, 200, 180 };
+					SDL_RenderCopy(renderer, attack_texture, NULL, &character_rect);
+
+					pos_attack += 50;
+				}
+
 			}
 			easy_bg_count++;
 			SDL_RenderPresent(renderer);
-		}
-
-		if (frameTime == 3500000) {
-			frameTime = 0;
 		}
 		
 	}
