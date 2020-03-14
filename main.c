@@ -9,6 +9,7 @@
 #include <time.h> 
 #include <conio.h>
 #include <string.h>
+#include <math.h>
 
 SDL_Window* window;
 SDL_Renderer* renderer;
@@ -35,9 +36,25 @@ SDL_Texture* menu_difficulty_texture = NULL;
 SDL_Surface* arrow_right_surface = NULL;
 SDL_Texture* arrow_right_texture = NULL;
 
-SDL_Surface* cha_surface = NULL;
-SDL_Texture* cha_texture = NULL; 
+SDL_Surface* character_surface = NULL;
+SDL_Texture* character_texture = NULL;
 
+SDL_Surface* easy_1_mission_surface = NULL;
+SDL_Texture* easy_1_mission_texture = NULL;
+
+SDL_Surface* easy_background_surface = NULL;
+SDL_Texture* easy_background_texture = NULL;
+
+SDL_Surface* monster_easy_1_surface = NULL;
+SDL_Texture* monster_easy_1_texture = NULL;
+
+SDL_Surface* health_bar_surface = NULL;
+SDL_Texture* health_bar_texture = NULL;
+
+SDL_Surface* health_bar_bg_surface = NULL;
+SDL_Texture* health_bar_bg_texture = NULL;
+
+// Test
 SDL_Surface* ingame_bg2_surface = NULL;
 SDL_Texture* ingame_bg2_texture = NULL;
 
@@ -60,10 +77,14 @@ int arrow_random = 0, arrow_stop = 0;
 int arrow_running = 0;
 int menu_bg_count = 0 , menu_main_on = 1, menu_bg = 1, menu_how = 0, menu_diffi = 0, menu_info_on = 0;    //Create menu checker
 int selector_main = 1, selector_diff = 1;    //Create Selector in menu
+int mission_on = 0, easy_1_mission = 0, easy = 0, easy_1 = 0, easy_bg_count = 0, character_count = 0;
+int monster_health = 0;
+int health_bar = 0;
+char health[100];
 
 int score = 0, fail = 0;
 
-int pos_x = 0;
+int pos_x = 0, pos_x_cha = 0;
 int pos_selector_y = 0;
 
 int main(int argc, char* args[]) {
@@ -79,10 +100,7 @@ int main(int argc, char* args[]) {
 
 	TTF_Font* sans = TTF_OpenFont("font/HACKED.ttf", 100);   //Load font Hacked
 	SDL_Color black = { 0, 0, 0 };   //Set black color
-
-	SDL_Surface* message_surface_enter = TTF_RenderText_Solid(sans, "Press \"Enter\" to start", black);
-	SDL_Texture* message_texture_enter = SDL_CreateTextureFromSurface(renderer, message_surface_enter);
-	SDL_Rect message_rect = { 150, 300, 900, 120 };
+	SDL_Color white = { 255, 255, 255 };
 
 	menu_bg_surface = IMG_Load("background/img/frame2/allframe_2.png");
 	menu_bg_texture = SDL_CreateTextureFromSurface(renderer, menu_bg_surface);
@@ -102,6 +120,26 @@ int main(int argc, char* args[]) {
 
 	menu_difficulty_surface = IMG_Load("image/menu_diff.png");   //Render Button
 	menu_difficulty_texture = SDL_CreateTextureFromSurface(renderer, menu_difficulty_surface);
+
+	easy_1_mission_surface = IMG_Load("image/mission/easy_1.png");   //Render Button
+	easy_1_mission_texture = SDL_CreateTextureFromSurface(renderer, easy_1_mission_surface);
+	SDL_Rect mission_rect = { 0, 0, 1200, 720 };
+
+	easy_background_surface = IMG_Load("background/cave4.png");   //Render Button
+	easy_background_texture = SDL_CreateTextureFromSurface(renderer, easy_background_surface);
+
+	character_surface = IMG_Load("image/human_1/human_idle.png");   //Render Button
+	character_texture = SDL_CreateTextureFromSurface(renderer, character_surface);
+
+	health_bar_surface = IMG_Load("image/yellow.png");   //Render Button
+	health_bar_texture = SDL_CreateTextureFromSurface(renderer, health_bar_surface);
+
+	health_bar_bg_surface = IMG_Load("image/black.png");   //Render Button
+	health_bar_bg_texture = SDL_CreateTextureFromSurface(renderer, health_bar_bg_surface);
+
+	SDL_Surface* message_surface_health = TTF_RenderText_Solid(sans, "xxxxxx", black);
+	SDL_Texture* message_texture_health = SDL_CreateTextureFromSurface(renderer, message_surface_health);
+	SDL_Rect message_health_ingame_rect = { 750, 110, 240, 40 };
 
 	while (running) {
 
@@ -182,6 +220,10 @@ int main(int argc, char* args[]) {
 						switch (selector_diff)
 						{
 						case 1:
+							menu_diffi = 0;
+							menu_bg = 0;
+							easy_1_mission = 1;
+							easy = 1;
 							break;
 						case 2:
 							break;
@@ -195,6 +237,15 @@ int main(int argc, char* args[]) {
 							break;
 						}
 					}
+
+					else if (easy == 1) {
+						if (easy_1_mission == 1) {
+							easy_1_mission = 0;
+							easy_1 = 1;
+							monster_health = 30;
+							sprintf(health, "Monster HP : %01d", monster_health);
+						}
+					}
 					break;
 				default:
 					break;
@@ -202,7 +253,7 @@ int main(int argc, char* args[]) {
 			}
 			
 		}
-		/*int delay_diff = 60000;
+		/*delay_diff = 60000;
 		int delay = delay_diff / 60 - SDL_GetTicks() + SDL_GetTicks();
 		SDL_Delay(delay);*/
 
@@ -247,6 +298,46 @@ int main(int argc, char* args[]) {
 			menu_bg_count++;  //move background
 			SDL_RenderPresent(renderer);  //render
 
+		}
+
+		if (frameTime % 50000 == 0 && easy == 1) {
+
+			if (easy_bg_count == 17) {
+				easy_bg_count = 0;
+			}
+			SDL_RenderClear(renderer);
+
+			if (easy_1_mission == 1) {
+				SDL_RenderCopy(renderer, easy_1_mission_texture, NULL, &mission_rect);
+			}
+			if (easy_1 == 1) {
+
+				if (character_count == 11) {
+					character_count = 0;
+				}
+
+				pos_x = easy_bg_count * 672;
+				SDL_Rect easy_bg_rect = { 0, 0, 1200, 720 };
+				SDL_Rect easy_bg_srcrect = { pos_x ,0, 672, 378 };
+				SDL_RenderCopy(renderer, easy_background_texture, &easy_bg_srcrect, &easy_bg_rect);
+
+				pos_x_cha = character_count * 91;
+				SDL_Rect character_rect = { 250, 440, 158, 187 };
+				SDL_Rect character_srcrect = { pos_x_cha, 0, 91, 113 };
+				SDL_RenderCopy(renderer, character_texture, &character_srcrect, &character_rect);
+				character_count++;
+
+				health_bar = ((double)monster_health / 30) * 800;
+				SDL_Rect health_bg_rect = { 200, 150, 800, 80 };
+				SDL_Rect health_rect = { 200, 150, health_bar, 80 };
+				SDL_RenderCopy(renderer, health_bar_bg_texture, NULL, &health_bg_rect);
+				SDL_RenderCopy(renderer, health_bar_texture, NULL, &health_rect);
+				message_surface_health = TTF_RenderText_Solid(sans, health, white);
+				message_texture_health = SDL_CreateTextureFromSurface(renderer, message_surface_health);
+				SDL_RenderCopy(renderer, message_texture_health, NULL, &message_health_ingame_rect);
+			}
+			easy_bg_count++;
+			SDL_RenderPresent(renderer);
 		}
 
 		if (frameTime == 3500000) {
