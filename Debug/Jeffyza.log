@@ -1,17 +1,17 @@
 ﻿  main.c
-D:\ProjectCompro\Compro_Project\main.c(272,55): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(278,94): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(326,55): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(332,94): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(368,55): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(374,94): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(411,55): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(417,94): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(557,38): warning C4013: 'menu_main_button' undefined; assuming extern returning int
-D:\ProjectCompro\Compro_Project\main.c(568,31): warning C4013: 'menu_diff' undefined; assuming extern returning int
-D:\ProjectCompro\Compro_Project\main.c(640,54): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(666,20): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(695,92): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(701,53): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(135,20): warning C4101: 'currentTime': unreferenced local variable
+D:\ProjectCompro\Compro_Project\main.c(260,55): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(266,94): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(314,55): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(320,94): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(356,55): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(362,94): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(399,55): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(405,94): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(545,38): warning C4013: 'menu_main_button' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(556,31): warning C4013: 'menu_diff' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(629,54): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(654,20): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(684,92): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(690,53): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(125,20): warning C4101: 'currentTime': unreferenced local variable
   Jeffyza.vcxproj -> D:\ProjectCompro\Compro_Project\Debug\Jeffyza.exe
