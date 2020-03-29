@@ -113,11 +113,12 @@ int easy_1_pass = 0, fail_scene = 0;
 int health_bar = 0, time_bar = 800, monster_health = 0, turn_left = 0;
 char health[100], turn[100], score_text[100], fail_text[100];
 int easy_1_idle = 0, attack_on = 0, cha_idle_on = 0;
-int arrow_on = 0, arrow_random_on = 0, arrow_random = 0;
+int arrow_on = 0, arrow_random_on = 0, arrow_random = 5;
 int score = 0, fail = 0;
 int pos_x = 0, pos_x_cha = 0, pos_x_mon = 0, pos_attack = 250, pos_x_cha_attack = 0, pos_selector_y = 0;
 int death_on = 0, start_attack_on = 1;
 int slime_position = 830, slime_idle = 1;
+int menu_bg_srcrect_x = 560, easy_bg_srcrect_x = 672;
 
 int main(int argc, char* args[]) {
 	TTF_Init();                              //SDL_ttf init
@@ -526,67 +527,39 @@ int main(int argc, char* args[]) {
 					break;
 				}
 			}
-			
 		}
-		/*delay_diff = 60000;
-		int delay = delay_diff / 60 - SDL_GetTicks() + SDL_GetTicks();
-		SDL_Delay(delay);*/
-
 
 		frameTime++;
 		
 		if (frameTime % 35000 == 0 && menu_bg == 1) {  //render background and function in main menu
-
 			SDL_RenderClear(renderer);  //clear renderer
-
 			if (menu_bg_count > 7) {   //check for loop background
 				menu_bg_count = 0;
 			}
-
-			pos_x = menu_bg_count * 560;
-			SDL_Rect menu_bg_rect = { 0, 0, 1200, 720 };
-			SDL_Rect menu_bg_srcrect = { pos_x ,0, 560, 272 };
-			SDL_RenderCopy(renderer, menu_bg_texture, &menu_bg_srcrect, &menu_bg_rect);  //background render function
+			background_render(menu_bg_texture, menu_bg_count, menu_bg_srcrect_x, 272);
 
 			if (menu_main_on == 1) {  //render button in mainmenu
-				SDL_RenderCopy(renderer, menu_main_button_texture, NULL, &menu_main_button_rect);
-				pos_selector_y = menu_main_button(selector_main);
-				SDL_Rect menu_main_selector_rect = { 270, pos_selector_y, 163, 128 };
-				SDL_RenderCopy(renderer, arrow_cool_right_texture, NULL, &menu_main_selector_rect);
+				menu_button_render(menu_main_button_texture, selector_main, arrow_cool_right_texture);
 			}
-			
 			if (menu_how == 1) {   //render how to play menu
 				SDL_RenderCopy(renderer, menu_howtoplay_texture, NULL, &menu_main_button_rect);
 			}
-
 			if (menu_diffi == 1) {  //render difficulty select menu
-				SDL_RenderCopy(renderer, menu_difficulty_texture, NULL, &menu_main_button_rect);
-				pos_selector_y = menu_diff(selector_diff);
-				SDL_Rect menu_main_selector_rect = { 200, pos_selector_y, 163, 128 };
-				SDL_RenderCopy(renderer, arrow_cool_right_texture, NULL, &menu_main_selector_rect);
+				menu_difficulty_render(menu_difficulty_texture, selector_diff, arrow_cool_right_texture);
 			}
-
 			if (menu_info_on == 1) {  //render info menu
 				SDL_RenderCopy(renderer, menu_info_texture, NULL, &menu_main_button_rect);
 			}
-
 			menu_bg_count++;  //move background
 			SDL_RenderPresent(renderer);  //render
-
 		}
 
 		if (frameTime % 40000 == 0 && easy == 1) {
-
 			SDL_RenderClear(renderer);
-
 			if (easy_bg_count == 17) {  //Background easy loop
 				easy_bg_count = 0;
 			}
-
-			pos_x = easy_bg_count * 672;   //Render background in easy mode 
-			SDL_Rect easy_bg_rect = { 0, 0, 1200, 720 };
-			SDL_Rect easy_bg_srcrect = { pos_x ,0, 672, 378 };
-			SDL_RenderCopy(renderer, easy_background_texture, &easy_bg_srcrect, &easy_bg_rect);
+			background_render(easy_background_texture, easy_bg_count, easy_bg_srcrect_x, 378);
 
 			if (cha_idle_on == 1 && monster_health > 0) {
 				if (character_count == 11) {   //character loop
@@ -610,7 +583,9 @@ int main(int argc, char* args[]) {
 
 				if (turn_left == 0) {  //if run out of turn enter fail scene
 					death_on = 1;
-					easy_1_idle = 1;
+					if (fail_scene == 0) {
+						easy_1_idle = 1;
+					}
 					start_attack_on = 0;
 				}
 				
@@ -627,6 +602,7 @@ int main(int argc, char* args[]) {
 							easy_1_idle = 0;
 							cha_idle_on = 0;
 							SDL_RenderClear(renderer);
+							SDL_RenderCopy(renderer, easy_background_texture, &easy_bg_srcrect, &easy_bg_rect);
 							fail_scene = 1;
 						}
 						pos_x_mon = monster_count * 80;   //Render slime
@@ -738,9 +714,7 @@ int main(int argc, char* args[]) {
 			}
 
 			if (fail_scene == 1) {   //Render Fail Scene
-				delay_function(6000);
-				SDL_RenderCopy(renderer, easy_background_texture, &easy_bg_srcrect, &easy_bg_rect);
-				SDL_RenderCopy(renderer, fail_texture, NULL, &mission_rect);
+				fail_render(fail_texture);
 			}
 
 			if (attack_on == 1) {   //Render attack scene
@@ -784,57 +758,51 @@ int main(int argc, char* args[]) {
 }
 
 	
-int menu_main_button(selector) {  //check where selector is
-
-	int y = 0;
-	switch (selector) 
-	{
-		case 1:
-			y = 240;
-			break;
-		case 2:
-			y = 360;
-			break;
-		case 3:
-			y = 450;
-			break;
-		case 4:
-			y = 560;
-			break;
-		default:
-			break;
-	}
-
-	return y;
-
+int background_render(texture, count, srcrect_x, srcrect_y) {
+	pos_x = count * srcrect_x;
+	SDL_Rect bg_rect = { 0, 0, 1200, 720 };
+	SDL_Rect bg_srcrect = {pos_x , 0, srcrect_x, srcrect_y};
+	SDL_RenderCopy(renderer, texture, &bg_srcrect, &bg_rect);  //background render function
 }
 
-int menu_diff(selector) {
-
+int menu_button_render(button_texture, selector, arrow_texture) {
 	int y = 0;
-	switch (selector)  //Check where selector is
-	{
-	case 1:
-		y = 90;
-		break;
-	case 2:
-		y = 240;
-		break;
-	case 3:
-		y = 390;
-		break;
-	case 4:
-		y = 570;
-		break;
-	default:
-		break;
+	switch (selector){
+	case 1: y = 240; break;
+	case 2: y = 360; break;
+	case 3: y = 450; break;
+	case 4: y = 560; break;
+	default: break;
 	}
+	SDL_Rect menu_selector_rect = { 270, y, 163, 128 };
+	SDL_Rect menu_button_rect = { 0, 0, 1200, 720 };
+	SDL_RenderCopy(renderer, button_texture, NULL, &menu_button_rect);
+	SDL_RenderCopy(renderer, arrow_texture, NULL, &menu_selector_rect);
+}
 
-	return y;
+int menu_difficulty_render(diff_texture, selector) {
+	int y = 0;
+	switch (selector) { //Check where selector is
+	case 1: y = 90; break;
+	case 2: y = 240; break;
+	case 3: y = 390; break;
+	case 4: y = 570; break;
+	default: break;
+	}
+	SDL_Rect menu_rect = { 0, 0, 1200, 720 };
+	SDL_Rect selector_rect = { 200, y, 163, 128 };
+	SDL_RenderCopy(renderer, diff_texture, NULL, &menu_rect);
+	SDL_RenderCopy(renderer, arrow_cool_right_texture, NULL, &selector_rect);
 }
 
 int delay_function(delay_diff) {
 	int delay = delay_diff / 60 - SDL_GetTicks() + SDL_GetTicks();
 	SDL_Delay(delay);
+	return 0;
+}
+
+int fail_render(texture) {
+	SDL_Rect mission_rect = { 0, 0, 1200, 720 };
+	SDL_RenderCopy(renderer, texture, NULL, &mission_rect);
 	return 0;
 }

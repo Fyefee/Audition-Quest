@@ -23,6 +23,7 @@
     <ProjectGuid>{5C2C7999-DA55-418C-B6A6-C8501C381F67}</ProjectGuid>
     <RootNamespace>Jeffyza</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Audition Quest</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

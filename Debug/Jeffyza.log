@@ -1,18 +1,33 @@
 ﻿  main.c
-D:\ProjectCompro\Compro_Project\main.c(265,55): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(271,94): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(279,22): warning C4013: 'delay_function' undefined; assuming extern returning int
-D:\ProjectCompro\Compro_Project\main.c(319,55): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(325,94): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(361,55): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(367,94): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(404,55): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(410,94): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(553,38): warning C4013: 'menu_main_button' undefined; assuming extern returning int
-D:\ProjectCompro\Compro_Project\main.c(564,31): warning C4013: 'menu_diff' undefined; assuming extern returning int
-D:\ProjectCompro\Compro_Project\main.c(654,54): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(689,19): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(719,91): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(725,52): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(129,20): warning C4101: 'currentTime': unreferenced local variable
-  Jeffyza.vcxproj -> D:\ProjectCompro\Compro_Project\Debug\Jeffyza.exe
+D:\ProjectCompro\Compro_Project\main.c(266,55): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(272,94): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(280,22): warning C4013: 'delay_function' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(320,55): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(326,94): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(362,55): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(368,94): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(405,55): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(411,94): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(539,21): warning C4013: 'background_render' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(542,23): warning C4013: 'menu_button_render' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(548,27): warning C4013: 'menu_difficulty_render' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(630,54): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(665,19): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(695,91): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(701,52): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(717,16): warning C4013: 'fail_render' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(130,20): warning C4101: 'currentTime': unreferenced local variable
+D:\ProjectCompro\Compro_Project\main.c(765,34): warning C4047: 'function': 'SDL_Texture *' differs in levels of indirection from 'int'
+D:\ProjectCompro\Compro_Project\main.c(765,34): warning C4024: 'SDL_RenderCopy': different types for formal and actual parameter 2
+D:\ProjectCompro\Compro_Project\main.c(779,41): warning C4047: 'function': 'SDL_Texture *' differs in levels of indirection from 'int'
+D:\ProjectCompro\Compro_Project\main.c(779,41): warning C4024: 'SDL_RenderCopy': different types for formal and actual parameter 2
+D:\ProjectCompro\Compro_Project\main.c(780,40): warning C4047: 'function': 'SDL_Texture *' differs in levels of indirection from 'int'
+D:\ProjectCompro\Compro_Project\main.c(780,40): warning C4024: 'SDL_RenderCopy': different types for formal and actual parameter 2
+D:\ProjectCompro\Compro_Project\main.c(794,39): warning C4047: 'function': 'SDL_Texture *' differs in levels of indirection from 'int'
+D:\ProjectCompro\Compro_Project\main.c(794,39): warning C4024: 'SDL_RenderCopy': different types for formal and actual parameter 2
+D:\ProjectCompro\Compro_Project\main.c(806,34): warning C4047: 'function': 'SDL_Texture *' differs in levels of indirection from 'int'
+D:\ProjectCompro\Compro_Project\main.c(806,34): warning C4024: 'SDL_RenderCopy': different types for formal and actual parameter 2
+D:\ProjectCompro\Compro_Project\main.c(781): warning C4716: 'menu_button_render': must return a value
+D:\ProjectCompro\Compro_Project\main.c(766): warning C4716: 'background_render': must return a value
+D:\ProjectCompro\Compro_Project\main.c(796): warning C4716: 'menu_difficulty_render': must return a value
+  Jeffyza.vcxproj -> D:\ProjectCompro\Compro_Project\Debug\Audition Quest.exe
