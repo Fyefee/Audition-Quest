@@ -105,7 +105,7 @@ SDL_Texture* attack_2_texture = NULL;
 int running;
 int width = 1200, height = 720;    //Create width and height of program
 
-long long frameTime = 0;    //Create frametime
+long long frameTime = 0, frameTime_2 = 0, keyboard_bug_fix = 0;    //Create frametime
 int menu_bg_count = 0 , menu_main_on = 1, menu_bg = 1, menu_how = 0, menu_diffi = 0, menu_info_on = 0;    //Create menu checker
 int selector_main = 1, selector_diff = 1;    //Create Selector in menu
 int mission_on = 0, easy_1_mission = 0, easy = 0, easy_1 = 0, easy_bg_count = 0, character_count = 0, monster_count = 0;
@@ -113,7 +113,7 @@ int easy_1_pass = 0, fail_scene = 0;
 int health_bar = 0, time_bar = 800, monster_health = 0, turn_left = 0;
 char health[100], turn[100], score_text[100], fail_text[100];
 int easy_1_idle = 0, attack_on = 0, cha_idle_on = 0;
-int arrow_on = 0, arrow_random_on = 0, arrow_random = 5;
+int arrow_on = 0, arrow_random_on = 0, arrow_random = 5, arrow_stop = 0;
 int score = 0, fail = 0;
 int pos_x = 0, pos_x_cha = 0, pos_x_mon = 0, pos_attack = 250, pos_x_cha_attack = 0, pos_selector_y = 0;
 int death_on = 0, start_attack_on = 1;
@@ -138,7 +138,6 @@ int main(int argc, char* args[]) {
 
 	menu_main_button_surface = IMG_Load("image/menu_main_button.png");   //render button
 	menu_main_button_texture = SDL_CreateTextureFromSurface(renderer, menu_main_button_surface);
-	SDL_Rect menu_main_button_rect = { 0, 0, 1200, 720 };
 
 	SDL_Rect arrow = { 470, 120, 250, 250 };
 	arrow_cool_right_surface = IMG_Load("image/arrow_cool/black/arrow_cool_right.png");  //render selector
@@ -232,9 +231,10 @@ int main(int argc, char* args[]) {
 			if (event.type == SDL_QUIT) {   //If click close window turn off program
 				running = 0;
 			}
-			else if (event.type == SDL_KEYDOWN) {    //Check Keyboard Event
+			else if (event.type == SDL_KEYDOWN && keyboard_bug_fix == 0) {    //Check Keyboard Event
 				switch (event.key.keysym.sym){
 				case SDLK_UP:    //Check button arrow up
+					keyboard_bug_fix = 1;
 					if (menu_main_on == 1) {   //For move selector in main menu
 						if (selector_main == 2 || selector_main == 3 || selector_main == 4) {
 							selector_main--;
@@ -249,38 +249,14 @@ int main(int argc, char* args[]) {
 
 					if (arrow_random_on == 0) {   //Check arrow while in audition mode
 						if (arrow_random == 0) {
-							printf("Yes\n");
-							arrow_random_on = 1;
+							arrow_stop = 1;
+							frameTime_2 = 0;
 							score += 1;
 							sprintf(score_text, "Score : %01d", score);
 							message_surface_score = TTF_RenderText_Solid(sans, score_text, white);
 							message_texture_score = SDL_CreateTextureFromSurface(renderer, message_surface_score);
-
-							SDL_RenderClear(renderer);
-							SDL_RenderCopy(renderer, easy_background_texture, &easy_bg_srcrect, &easy_bg_rect);
-							SDL_RenderCopy(renderer, slime_texture, &slime_srcrect, &slime_rect);
-							SDL_Rect time_rect = { 50, 50, time_bar, 50 };
-							SDL_Rect time_bg_rect = { 50, 50, 1100, 50 };
-							SDL_RenderCopy(renderer, health_bar_bg_texture, NULL, &time_bg_rect);
-							SDL_RenderCopy(renderer, health_bar_texture, NULL, &time_rect);
-							health_bar = ((double)monster_health / 30) * 80;
-							SDL_Rect health_bg_rect = { 865, 490, 80, 15 };
-							SDL_Rect health_rect = { 865, 490, health_bar, 15 };
-							SDL_RenderCopy(renderer, health_bar_bg_texture, NULL, &health_bg_rect);
-							SDL_RenderCopy(renderer, health_bar_texture, NULL, &health_rect);
-							pos_x_cha = character_count * 91;
-							pos_x_cha_attack = (double)250 + (double)500 * (1 - ((double)time_bar / (double)1100));
-							SDL_Rect character_rect = { pos_x_cha_attack, 440, 158, 187 };
-							SDL_Rect character_srcrect = { pos_x_cha, 0, 91, 113 };
-							SDL_RenderCopy(renderer, character_texture, &character_srcrect, &character_rect);
-							SDL_RenderCopy(renderer, message_texture_score, NULL, &message_score_ingame_rect);
-							SDL_RenderCopy(renderer, message_texture_fail, NULL, &message_fail_ingame_rect);
-							SDL_RenderPresent(renderer);
-
-							delay_function(18000);
 						}
 						else {
-							printf("no\n");
 							fail += 1;
 							sprintf(fail_text, "Fail : %01d/3", fail);
 							message_surface_fail = TTF_RenderText_Solid(sans, fail_text, white);
@@ -289,6 +265,7 @@ int main(int argc, char* args[]) {
 					}
 					break;
 				case SDLK_DOWN:  //Check button arrow down
+					keyboard_bug_fix = 1;
 					if (menu_main_on == 1) {   //For move selector in main menu
 						if (selector_main == 1 || selector_main == 2 || selector_main == 3) {
 							selector_main++;
@@ -303,38 +280,15 @@ int main(int argc, char* args[]) {
 
 					if (arrow_random_on == 0) {   //Check arrow while in audition mode
 						if (arrow_random == 1) {
-							printf("Yes\n");
+							arrow_stop = 1;
+							frameTime_2 = 0;
 							arrow_random_on = 1;
 							score += 1;
 							sprintf(score_text, "Score : %01d", score);
 							message_surface_score = TTF_RenderText_Solid(sans, score_text, white);
 							message_texture_score = SDL_CreateTextureFromSurface(renderer, message_surface_score);
-
-							SDL_RenderClear(renderer);
-							SDL_RenderCopy(renderer, easy_background_texture, &easy_bg_srcrect, &easy_bg_rect);
-							SDL_RenderCopy(renderer, slime_texture, &slime_srcrect, &slime_rect);
-							SDL_Rect time_rect = { 50, 50, time_bar, 50 };
-							SDL_Rect time_bg_rect = { 50, 50, 1100, 50 };
-							SDL_RenderCopy(renderer, health_bar_bg_texture, NULL, &time_bg_rect);
-							SDL_RenderCopy(renderer, health_bar_texture, NULL, &time_rect);
-							health_bar = ((double)monster_health / 30) * 80;
-							SDL_Rect health_bg_rect = { 865, 490, 80, 15 };
-							SDL_Rect health_rect = { 865, 490, health_bar, 15 };
-							SDL_RenderCopy(renderer, health_bar_bg_texture, NULL, &health_bg_rect);
-							SDL_RenderCopy(renderer, health_bar_texture, NULL, &health_rect);
-							pos_x_cha = character_count * 91;
-							pos_x_cha_attack = (double)250 + (double)500 * (1 - ((double)time_bar / (double)1100));
-							SDL_Rect character_rect = { pos_x_cha_attack, 440, 158, 187 };
-							SDL_Rect character_srcrect = { pos_x_cha, 0, 91, 113 };
-							SDL_RenderCopy(renderer, character_texture, &character_srcrect, &character_rect);
-							SDL_RenderCopy(renderer, message_texture_score, NULL, &message_score_ingame_rect);
-							SDL_RenderCopy(renderer, message_texture_fail, NULL, &message_fail_ingame_rect);
-							SDL_RenderPresent(renderer);
-
-							delay_function(18000);
 						}
 						else {
-							printf("no\n");
 							fail += 1;
 							sprintf(fail_text, "Fail : %01d/3", fail);
 							message_surface_fail = TTF_RenderText_Solid(sans, fail_text, white);
@@ -343,40 +297,18 @@ int main(int argc, char* args[]) {
 					}
 					break;
 				case SDLK_LEFT:
+					keyboard_bug_fix = 1;
 					if (arrow_random_on == 0) {   //Check arrow while in audition mode
 						if (arrow_random == 2) {
-							printf("Yes\n");
+							arrow_stop = 1;
+							frameTime_2 = 0;
 							arrow_random_on = 1;
 							score += 1;
 							sprintf(score_text, "Score : %01d", score);
 							message_surface_score = TTF_RenderText_Solid(sans, score_text, white);
 							message_texture_score = SDL_CreateTextureFromSurface(renderer, message_surface_score);
-
-							SDL_RenderClear(renderer);
-							SDL_RenderCopy(renderer, easy_background_texture, &easy_bg_srcrect, &easy_bg_rect);
-							SDL_RenderCopy(renderer, slime_texture, &slime_srcrect, &slime_rect);
-							SDL_Rect time_rect = { 50, 50, time_bar, 50 };
-							SDL_Rect time_bg_rect = { 50, 50, 1100, 50 };
-							SDL_RenderCopy(renderer, health_bar_bg_texture, NULL, &time_bg_rect);
-							SDL_RenderCopy(renderer, health_bar_texture, NULL, &time_rect);
-							health_bar = ((double)monster_health / 30) * 80;
-							SDL_Rect health_bg_rect = { 865, 490, 80, 15 };
-							SDL_Rect health_rect = { 865, 490, health_bar, 15 };
-							SDL_RenderCopy(renderer, health_bar_bg_texture, NULL, &health_bg_rect);
-							SDL_RenderCopy(renderer, health_bar_texture, NULL, &health_rect);
-							pos_x_cha = character_count * 91;
-							pos_x_cha_attack = (double)250 + (double)500 * (1 - ((double)time_bar / (double)1100));
-							SDL_Rect character_rect = { pos_x_cha_attack, 440, 158, 187 };
-							SDL_Rect character_srcrect = { pos_x_cha, 0, 91, 113 };
-							SDL_RenderCopy(renderer, character_texture, &character_srcrect, &character_rect);
-							SDL_RenderCopy(renderer, message_texture_score, NULL, &message_score_ingame_rect);
-							SDL_RenderCopy(renderer, message_texture_fail, NULL, &message_fail_ingame_rect);
-							SDL_RenderPresent(renderer);
-
-							delay_function(18000);
 						}
 						else {
-							printf("no\n");
 							fail += 1;
 							sprintf(fail_text, "Fail : %01d/3", fail);
 							message_surface_fail = TTF_RenderText_Solid(sans, fail_text, white);
@@ -386,40 +318,18 @@ int main(int argc, char* args[]) {
 					
 					break;
 				case SDLK_RIGHT:
+					keyboard_bug_fix = 1;
 					if (arrow_random_on == 0) {   //Check arrow while in audition mode
 						if (arrow_random == 3) {
-							printf("Yes\n");
+							arrow_stop = 1;
+							frameTime_2 = 0;
 							arrow_random_on = 1;
 							score += 1;
 							sprintf(score_text, "Score : %01d", score);
 							message_surface_score = TTF_RenderText_Solid(sans, score_text, white);
 							message_texture_score = SDL_CreateTextureFromSurface(renderer, message_surface_score);
-
-							SDL_RenderClear(renderer);
-							SDL_RenderCopy(renderer, easy_background_texture, &easy_bg_srcrect, &easy_bg_rect);
-							SDL_RenderCopy(renderer, slime_texture, &slime_srcrect, &slime_rect);
-							SDL_Rect time_rect = { 50, 50, time_bar, 50 };
-							SDL_Rect time_bg_rect = { 50, 50, 1100, 50 };
-							SDL_RenderCopy(renderer, health_bar_bg_texture, NULL, &time_bg_rect);
-							SDL_RenderCopy(renderer, health_bar_texture, NULL, &time_rect);
-							health_bar = ((double)monster_health / 30) * 80;
-							SDL_Rect health_bg_rect = { 865, 490, 80, 15 };
-							SDL_Rect health_rect = { 865, 490, health_bar, 15 };
-							SDL_RenderCopy(renderer, health_bar_bg_texture, NULL, &health_bg_rect);
-							SDL_RenderCopy(renderer, health_bar_texture, NULL, &health_rect);
-							pos_x_cha = character_count * 91;
-							pos_x_cha_attack = (double)250 + (double)500 * (1 - ((double)time_bar / (double)1100));
-							SDL_Rect character_rect = { pos_x_cha_attack, 440, 158, 187 };
-							SDL_Rect character_srcrect = { pos_x_cha, 0, 91, 113 };
-							SDL_RenderCopy(renderer, character_texture, &character_srcrect, &character_rect);
-							SDL_RenderCopy(renderer, message_texture_score, NULL, &message_score_ingame_rect);
-							SDL_RenderCopy(renderer, message_texture_fail, NULL, &message_fail_ingame_rect);
-							SDL_RenderPresent(renderer);
-
-							delay_function(18000);
 						}
 						else {
-							printf("no\n");
 							fail += 1;
 							sprintf(fail_text, "Fail : %01d/3", fail);
 							message_surface_fail = TTF_RenderText_Solid(sans, fail_text, white);
@@ -429,7 +339,7 @@ int main(int argc, char* args[]) {
 					
 					break;
 				case SDLK_RETURN:   //Check button ENTER
-
+					keyboard_bug_fix = 1;
 					if (menu_main_on == 1) {    //Check where selector in main menu is
 						switch (selector_main)
 						{
@@ -527,28 +437,38 @@ int main(int argc, char* args[]) {
 					break;
 				}
 			}
+
+			else if (event.type == SDL_KEYUP) {
+				keyboard_bug_fix = 0;
+			}
 		}
 
 		frameTime++;
+		frameTime_2++;
+
+		if (frameTime_2 == 125000 && arrow_stop == 1) {
+			arrow_stop = 0;
+			arrow_random_on = 1;
+		}
 		
 		if (frameTime % 35000 == 0 && menu_bg == 1) {  //render background and function in main menu
 			SDL_RenderClear(renderer);  //clear renderer
 			if (menu_bg_count > 7) {   //check for loop background
 				menu_bg_count = 0;
 			}
-			background_render(menu_bg_texture, menu_bg_count, menu_bg_srcrect_x, 272);
+			render_animation(menu_bg_texture, menu_bg_count, 560, 272, 0, 0, 1200, 720);
 
 			if (menu_main_on == 1) {  //render button in mainmenu
 				menu_button_render(menu_main_button_texture, selector_main, arrow_cool_right_texture);
 			}
 			if (menu_how == 1) {   //render how to play menu
-				SDL_RenderCopy(renderer, menu_howtoplay_texture, NULL, &menu_main_button_rect);
+				render_something(menu_howtoplay_texture, 0, 0, 1200, 720);
 			}
 			if (menu_diffi == 1) {  //render difficulty select menu
 				menu_difficulty_render(menu_difficulty_texture, selector_diff, arrow_cool_right_texture);
 			}
 			if (menu_info_on == 1) {  //render info menu
-				SDL_RenderCopy(renderer, menu_info_texture, NULL, &menu_main_button_rect);
+				render_something(menu_info_texture, 0, 0, 1200, 720);
 			}
 			menu_bg_count++;  //move background
 			SDL_RenderPresent(renderer);  //render
@@ -559,16 +479,13 @@ int main(int argc, char* args[]) {
 			if (easy_bg_count == 17) {  //Background easy loop
 				easy_bg_count = 0;
 			}
-			background_render(easy_background_texture, easy_bg_count, easy_bg_srcrect_x, 378);
+			render_animation(easy_background_texture, easy_bg_count, 672, 378, 0, 0, 1200, 720);
 
 			if (cha_idle_on == 1 && monster_health > 0) {
 				if (character_count == 11) {   //character loop
 					character_count = 0;
 				}
-				pos_x_cha = character_count * 91;  // Render character
-				SDL_Rect character_rect = { 250, 440, 158, 187 };
-				SDL_Rect character_srcrect = { pos_x_cha, 0, 91, 113 };
-				SDL_RenderCopy(renderer, character_texture, &character_srcrect, &character_rect);
+				render_animation(character_texture, character_count, 91, 113, 250, 440, 158, 187);
 				character_count++;
 			}
 
@@ -589,7 +506,6 @@ int main(int argc, char* args[]) {
 					start_attack_on = 0;
 				}
 				
-
 				if (death_on == 1) {
 					if (slime_position != 280) {
 						slime_position -= 10;
@@ -602,13 +518,10 @@ int main(int argc, char* args[]) {
 							easy_1_idle = 0;
 							cha_idle_on = 0;
 							SDL_RenderClear(renderer);
-							SDL_RenderCopy(renderer, easy_background_texture, &easy_bg_srcrect, &easy_bg_rect);
+							render_animation(easy_background_texture, easy_bg_count, 672, 378, 0, 0, 1200, 720);
 							fail_scene = 1;
 						}
-						pos_x_mon = monster_count * 80;   //Render slime
-						SDL_Rect slime_rect = { slime_position, 470, 140, 140 };
-						SDL_Rect slime_srcrect = { pos_x_mon, 0, 80, 100 };
-						SDL_RenderCopy(renderer, slime_attack_texture, &slime_srcrect, &slime_rect);
+						render_animation(slime_attack_texture, monster_count, 80, 100, slime_position, 470, 140, 140);
 						monster_count++;
 					}
 				}
@@ -617,21 +530,15 @@ int main(int argc, char* args[]) {
 					if (monster_count == 9) {  //monster idle loop
 						monster_count = 0;
 					}
-					pos_x_mon = monster_count * 80;   //Render slime
-					SDL_Rect slime_rect = { slime_position, 490, 140, 140 };
-					SDL_Rect slime_srcrect = { pos_x_mon, 0, 80, 80 };
-					SDL_RenderCopy(renderer, slime_texture, &slime_srcrect, &slime_rect);
+					render_animation(slime_texture, monster_count, 80, 80, slime_position, 490, 140 ,140);
 					monster_count++;
 				}
 
 				if (easy_1_idle == 1) {   // Chack easy 1 idle mode
-
 					arrow_random = 5;
-					health_bar = ((double)monster_health / 30) * 800;  // Render health in idle mode
-					SDL_Rect health_bg_rect = { 200, 150, 800, 80 };
-					SDL_Rect health_rect = { 200, 150, health_bar, 80 };
-					SDL_RenderCopy(renderer, health_bar_bg_texture, NULL, &health_bg_rect);
-					SDL_RenderCopy(renderer, health_bar_texture, NULL, &health_rect);
+					health_bar = health_bar_width(monster_health, 30, 800);  // Render health in idle mode
+					render_something(health_bar_bg_texture, 200, 150, 800, 80);
+					render_something(health_bar_texture, 200, 150, health_bar, 80);
 
 					// Render text in idle mode
 					SDL_RenderCopy(renderer, message_texture_health, NULL, &message_health_ingame_rect);
@@ -641,8 +548,8 @@ int main(int argc, char* args[]) {
 					}
 				}
 			}
-			if (arrow_on == 1) {    //Check arrow mode
 
+			if (arrow_on == 1) {    //Check arrow mode
 
 				if (score == monster_health) {
 					arrow_on = 0;
@@ -659,6 +566,7 @@ int main(int argc, char* args[]) {
 				if (time_bar == 0) {    //check if run out of time enter attack scene
 					arrow_on = 0;
 					attack_on = 1;
+					character_count = 0;
 				}
 
 				if (arrow_random_on == 1) {   //random arrow
@@ -669,20 +577,22 @@ int main(int argc, char* args[]) {
 
 				if (arrow_random_on == 0) {
 
-					time_bar -= 10;    // Render time bar
-					SDL_Rect time_rect = { 50, 50, time_bar, 50 };
-					SDL_Rect time_bg_rect = { 50, 50, 1100, 50 };
-					SDL_RenderCopy(renderer, health_bar_bg_texture, NULL, &time_bg_rect);
-					SDL_RenderCopy(renderer, health_bar_texture, NULL, &time_rect);
+					if (arrow_stop == 0) {
+						time_bar -= 8;    // Render time bar
+					}
+					render_something(health_bar_bg_texture, 50, 50, 1100, 50);
+					render_something(health_bar_texture, 50, 50, time_bar, 50);
 
-					switch (arrow_random)   //Render arrow
-					{
-					case 0: SDL_RenderCopy(renderer, arrow_up_texture, NULL, &arrow); break;
-					case 1: SDL_RenderCopy(renderer, arrow_down_texture, NULL, &arrow); break;
-					case 2: SDL_RenderCopy(renderer, arrow_left_texture, NULL, &arrow); break;
-					case 3: SDL_RenderCopy(renderer, arrow_right_texture, NULL, &arrow); break;
-					default:
-						break;
+					if (arrow_stop == 0) {
+						switch (arrow_random)   //Render arrow
+						{
+						case 0: SDL_RenderCopy(renderer, arrow_up_texture, NULL, &arrow); break;
+						case 1: SDL_RenderCopy(renderer, arrow_down_texture, NULL, &arrow); break;
+						case 2: SDL_RenderCopy(renderer, arrow_left_texture, NULL, &arrow); break;
+						case 3: SDL_RenderCopy(renderer, arrow_right_texture, NULL, &arrow); break;
+						default:
+							break;
+						}
 					}
 					SDL_RenderCopy(renderer, message_texture_score, NULL, &message_score_ingame_rect);   //Render text in audition mode
 					SDL_RenderCopy(renderer, message_texture_fail, NULL, &message_fail_ingame_rect);
@@ -691,30 +601,25 @@ int main(int argc, char* args[]) {
 				if (character_count == 11) {   //character loop
 					character_count = 0;
 				}
-				pos_x_cha = character_count * 91;   //render character that position focus on time
-				pos_x_cha_attack = (double)250 + (double)500 * (1 - ((double)time_bar / (double)1100));
-				SDL_Rect character_rect = { pos_x_cha_attack, 440, 158, 187 };
-				SDL_Rect character_srcrect = { pos_x_cha, 0, 91, 113 };
-				SDL_RenderCopy(renderer, character_texture, &character_srcrect, &character_rect);
+				pos_x_cha_attack = find_position(250, 500, time_bar);
+				render_animation(character_texture, character_count, 91, 113, pos_x_cha_attack, 440, 158, 187);
 				character_count++;
 
-				health_bar = ((double)monster_health / 30) * 80;   //render monster health in audition mode
-				SDL_Rect health_bg_rect = { 865, 490, 80, 15 };
-				SDL_Rect health_rect = { 865, 490, health_bar, 15 };
-				SDL_RenderCopy(renderer, health_bar_bg_texture, NULL, &health_bg_rect);
-				SDL_RenderCopy(renderer, health_bar_texture, NULL, &health_rect);
+				health_bar = health_bar_width(monster_health, 30, 80); //render monster health in audition mode
+				render_something(health_bar_bg_texture, 865, 490, 80, 15);
+				render_something(health_bar_texture, 865, 490, health_bar, 15);
 			}
 
 			if (easy_1_mission == 1) {  // Render easy mission 1
-				SDL_RenderCopy(renderer, easy_1_mission_texture, NULL, &mission_rect);
+				render_something(easy_1_mission_texture, 0, 0, 1200, 720);
 			}
 
 			if (easy_1_pass == 1) {   // Render easy 1 pass
-				SDL_RenderCopy(renderer, easy_1_pass_texture, NULL, &mission_rect);
+				render_something(easy_1_pass_texture, 0, 0, 1200, 720);
 			}
 
 			if (fail_scene == 1) {   //Render Fail Scene
-				fail_render(fail_texture);
+				render_something(fail_texture, 0, 0, 1200, 720);
 			}
 
 			if (attack_on == 1) {   //Render attack scene
@@ -734,35 +639,30 @@ int main(int argc, char* args[]) {
 					message_surface_turn = TTF_RenderText_Solid(sans, turn, white);
 					message_texture_turn = SDL_CreateTextureFromSurface(renderer, message_surface_turn);
 				}
-				pos_x_cha = character_count * 154;
-				SDL_Rect character_rect = { 720, 360, 248, 297 };
-				SDL_Rect character_srcrect = { pos_x_cha, 0, 154, 181 };
-				SDL_RenderCopy(renderer, attack_2_texture, &character_srcrect, &character_rect);
-
+				render_animation(attack_2_texture, character_count, 154, 181, 720, 360, 248, 297);
 				character_count++;
-
-				
 			}
-
 			easy_bg_count++;
 			SDL_RenderPresent(renderer);
 		}
-		
 	}
 	SDL_DestroyRenderer(renderer); // ทําลายตัว renderer
 	SDL_DestroyWindow(window); // ทําลายหน้าต่างโปรแกรม
 	TTF_Quit();
 	SDL_Quit(); // ออกจากโปรแกรม
 	return 0;
-
 }
 
-	
-int background_render(texture, count, srcrect_x, srcrect_y) {
+int render_animation(texture, count, srcrect_x, srcrect_y, pos_rect_x, pos_rect_y, rect_x, rect_y) {
 	pos_x = count * srcrect_x;
-	SDL_Rect bg_rect = { 0, 0, 1200, 720 };
-	SDL_Rect bg_srcrect = {pos_x , 0, srcrect_x, srcrect_y};
-	SDL_RenderCopy(renderer, texture, &bg_srcrect, &bg_rect);  //background render function
+	SDL_Rect animation_rect = { pos_rect_x, pos_rect_y, rect_x, rect_y };
+	SDL_Rect animation_srcrect = { pos_x , 0, srcrect_x, srcrect_y };
+	SDL_RenderCopy(renderer, texture, &animation_srcrect, &animation_rect);  //background render function
+}
+
+int render_something(texture, pos_rect_x, pos_rect_y, rect_x, rect_y) {
+	SDL_Rect something_rect = { pos_rect_x, pos_rect_y, rect_x, rect_y };
+	SDL_RenderCopy(renderer, texture, NULL, &something_rect);
 }
 
 int menu_button_render(button_texture, selector, arrow_texture) {
@@ -801,8 +701,34 @@ int delay_function(delay_diff) {
 	return 0;
 }
 
-int fail_render(texture) {
-	SDL_Rect mission_rect = { 0, 0, 1200, 720 };
-	SDL_RenderCopy(renderer, texture, NULL, &mission_rect);
-	return 0;
+int find_position(start, stop, time) {
+	return (double)start + (double)stop * (1 - ((double)time / (double)1100));
 }
+
+int health_bar_width(monster_health, max_health, size) {
+	return ((double)monster_health / max_health) * size;
+}
+
+//Back up 1
+/*SDL_RenderClear(renderer);
+render_animation(easy_background_texture, easy_bg_count, 672, 378, 0, 0, 1200, 720);
+render_animation(slime_texture, monster_count, 80, 80, slime_position, 490, 140, 140);
+SDL_Rect time_rect = { 50, 50, time_bar, 50 };
+SDL_Rect time_bg_rect = { 50, 50, 1100, 50 };
+SDL_RenderCopy(renderer, health_bar_bg_texture, NULL, &time_bg_rect);
+SDL_RenderCopy(renderer, health_bar_texture, NULL, &time_rect);
+health_bar = ((double)monster_health / 30) * 80;
+SDL_Rect health_bg_rect = { 865, 490, 80, 15 };
+SDL_Rect health_rect = { 865, 490, health_bar, 15 };
+SDL_RenderCopy(renderer, health_bar_bg_texture, NULL, &health_bg_rect);
+SDL_RenderCopy(renderer, health_bar_texture, NULL, &health_rect);
+pos_x_cha = character_count * 91;
+pos_x_cha_attack = (double)250 + (double)500 * (1 - ((double)time_bar / (double)1100));
+SDL_Rect character_rect = { pos_x_cha_attack, 440, 158, 187 };
+SDL_Rect character_srcrect = { pos_x_cha, 0, 91, 113 };
+SDL_RenderCopy(renderer, character_texture, &character_srcrect, &character_rect);
+SDL_RenderCopy(renderer, message_texture_score, NULL, &message_score_ingame_rect);
+SDL_RenderCopy(renderer, message_texture_fail, NULL, &message_fail_ingame_rect);
+SDL_RenderPresent(renderer);
+
+delay_function(18000);*/
