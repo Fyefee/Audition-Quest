@@ -1,26 +1,26 @@
 ﻿  main.c
-D:\ProjectCompro\Compro_Project\main.c(459,20): warning C4013: 'render_animation' undefined; assuming extern returning int
-D:\ProjectCompro\Compro_Project\main.c(462,23): warning C4013: 'menu_button_render' undefined; assuming extern returning int
-D:\ProjectCompro\Compro_Project\main.c(465,21): warning C4013: 'render_something' undefined; assuming extern returning int
-D:\ProjectCompro\Compro_Project\main.c(468,27): warning C4013: 'menu_difficulty_render' undefined; assuming extern returning int
-D:\ProjectCompro\Compro_Project\main.c(539,35): warning C4013: 'health_bar_width' undefined; assuming extern returning int
-D:\ProjectCompro\Compro_Project\main.c(573,19): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(604,37): warning C4013: 'find_position' undefined; assuming extern returning int
-D:\ProjectCompro\Compro_Project\main.c(130,20): warning C4101: 'currentTime': unreferenced local variable
-D:\ProjectCompro\Compro_Project\main.c(660,34): warning C4047: 'function': 'SDL_Texture *' differs in levels of indirection from 'int'
-D:\ProjectCompro\Compro_Project\main.c(660,34): warning C4024: 'SDL_RenderCopy': different types for formal and actual parameter 2
-D:\ProjectCompro\Compro_Project\main.c(665,34): warning C4047: 'function': 'SDL_Texture *' differs in levels of indirection from 'int'
-D:\ProjectCompro\Compro_Project\main.c(665,34): warning C4024: 'SDL_RenderCopy': different types for formal and actual parameter 2
-D:\ProjectCompro\Compro_Project\main.c(679,41): warning C4047: 'function': 'SDL_Texture *' differs in levels of indirection from 'int'
-D:\ProjectCompro\Compro_Project\main.c(679,41): warning C4024: 'SDL_RenderCopy': different types for formal and actual parameter 2
-D:\ProjectCompro\Compro_Project\main.c(680,40): warning C4047: 'function': 'SDL_Texture *' differs in levels of indirection from 'int'
-D:\ProjectCompro\Compro_Project\main.c(680,40): warning C4024: 'SDL_RenderCopy': different types for formal and actual parameter 2
-D:\ProjectCompro\Compro_Project\main.c(694,39): warning C4047: 'function': 'SDL_Texture *' differs in levels of indirection from 'int'
-D:\ProjectCompro\Compro_Project\main.c(694,39): warning C4024: 'SDL_RenderCopy': different types for formal and actual parameter 2
-D:\ProjectCompro\Compro_Project\main.c(705,75): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(709,53): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
-D:\ProjectCompro\Compro_Project\main.c(661): warning C4716: 'render_animation': must return a value
-D:\ProjectCompro\Compro_Project\main.c(666): warning C4716: 'render_something': must return a value
-D:\ProjectCompro\Compro_Project\main.c(681): warning C4716: 'menu_button_render': must return a value
-D:\ProjectCompro\Compro_Project\main.c(696): warning C4716: 'menu_difficulty_render': must return a value
+D:\ProjectCompro\Compro_Project\main.c(514,20): warning C4013: 'render_animation' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(517,23): warning C4013: 'menu_button_render' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(520,21): warning C4013: 'render_something' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(523,27): warning C4013: 'menu_difficulty_render' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(594,35): warning C4013: 'health_bar_width' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(688,19): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(719,37): warning C4013: 'find_position' undefined; assuming extern returning int
+D:\ProjectCompro\Compro_Project\main.c(134,20): warning C4101: 'currentTime': unreferenced local variable
+D:\ProjectCompro\Compro_Project\main.c(784,34): warning C4047: 'function': 'SDL_Texture *' differs in levels of indirection from 'int'
+D:\ProjectCompro\Compro_Project\main.c(784,34): warning C4024: 'SDL_RenderCopy': different types for formal and actual parameter 2
+D:\ProjectCompro\Compro_Project\main.c(789,34): warning C4047: 'function': 'SDL_Texture *' differs in levels of indirection from 'int'
+D:\ProjectCompro\Compro_Project\main.c(789,34): warning C4024: 'SDL_RenderCopy': different types for formal and actual parameter 2
+D:\ProjectCompro\Compro_Project\main.c(803,41): warning C4047: 'function': 'SDL_Texture *' differs in levels of indirection from 'int'
+D:\ProjectCompro\Compro_Project\main.c(803,41): warning C4024: 'SDL_RenderCopy': different types for formal and actual parameter 2
+D:\ProjectCompro\Compro_Project\main.c(804,40): warning C4047: 'function': 'SDL_Texture *' differs in levels of indirection from 'int'
+D:\ProjectCompro\Compro_Project\main.c(804,40): warning C4024: 'SDL_RenderCopy': different types for formal and actual parameter 2
+D:\ProjectCompro\Compro_Project\main.c(818,39): warning C4047: 'function': 'SDL_Texture *' differs in levels of indirection from 'int'
+D:\ProjectCompro\Compro_Project\main.c(818,39): warning C4024: 'SDL_RenderCopy': different types for formal and actual parameter 2
+D:\ProjectCompro\Compro_Project\main.c(829,75): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(833,53): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+D:\ProjectCompro\Compro_Project\main.c(805): warning C4716: 'menu_button_render': must return a value
+D:\ProjectCompro\Compro_Project\main.c(790): warning C4716: 'render_something': must return a value
+D:\ProjectCompro\Compro_Project\main.c(785): warning C4716: 'render_animation': must return a value
+D:\ProjectCompro\Compro_Project\main.c(820): warning C4716: 'menu_difficulty_render': must return a value
   Jeffyza.vcxproj -> D:\ProjectCompro\Compro_Project\Debug\Audition Quest.exe
