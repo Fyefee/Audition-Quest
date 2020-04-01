@@ -95,6 +95,10 @@ SDL_Texture* slime_attack_texture = NULL;
 
 SDL_Surface* eye_surface = NULL;
 SDL_Texture* eye_texture = NULL;
+SDL_Surface* eye_attack_surface = NULL;
+SDL_Texture* eye_attack_texture = NULL;
+SDL_Surface* eye_moving_surface = NULL;
+SDL_Texture* eye_moving_texture = NULL;
 
 //Create variable for text "start attack"
 SDL_Surface* text_start_attack_surface = NULL;
@@ -121,7 +125,7 @@ int score = 0, fail = 0;
 int pos_x = 0, pos_x_cha = 0, pos_x_mon = 0, pos_attack = 250, pos_x_cha_attack = 0, pos_selector_y = 0;
 int healthbar_position_x = 0, healthbar_position_y = 0;
 int death_on = 0, start_attack_on = 1;
-int monster_position = 830, slime_idle = 1, eye_idle = 1;
+int monster_position = 830, monster_idle = 1, monster_move = 0;
 int menu_bg_srcrect_x = 560, easy_bg_srcrect_x = 672;
 
 int main(int argc, char* args[]) {
@@ -192,6 +196,12 @@ int main(int argc, char* args[]) {
 
 	eye_surface = IMG_Load("image/monster_eye/eye_idle_sprite.png");   //Render Button
 	eye_texture = SDL_CreateTextureFromSurface(renderer, eye_surface);
+
+	eye_attack_surface = IMG_Load("image/monster_eye/eye_attack_sprite.png");   //Render Button
+	eye_attack_texture = SDL_CreateTextureFromSurface(renderer, eye_attack_surface);
+
+	eye_moving_surface = IMG_Load("image/monster_eye/eye_walk_sprite.png");   //Render Button
+	eye_moving_texture = SDL_CreateTextureFromSurface(renderer, eye_moving_surface);
 
 	health_bar_surface = IMG_Load("image/yellow.png");   //Render Button
 	health_bar_texture = SDL_CreateTextureFromSurface(renderer, health_bar_surface);
@@ -347,7 +357,15 @@ int main(int argc, char* args[]) {
 					break;
 				case SDLK_RETURN:   //Check button ENTER
 					keyboard_bug_fix = 1;
-					if (menu_main_on == 1) {    //Check where selector in main menu is
+
+					if (fail_scene == 1) {
+						fail_scene = 0;
+						menu_bg = 1;
+						menu_main_on = 1;
+						easy = 0;
+					}
+
+					else if (menu_main_on == 1) {    //Check where selector in main menu is
 						switch (selector_main)
 						{
 							case 1:
@@ -407,6 +425,7 @@ int main(int argc, char* args[]) {
 							easy_1_mission = 0;
 							easy_1 = 1;
 							easy_1_idle = 1;
+							monster_idle = 1;
 							cha_idle_on = 1;
 							monster_position = 830;
 							max_monster_health = 30;
@@ -566,14 +585,16 @@ int main(int argc, char* args[]) {
 						monster_position -= 10;
 					}
 					if (monster_position == 280) {
-						slime_idle = 0;
+						monster_idle = 0;
 					}
-					if (slime_idle == 0) {
-						if (monster_count == 18) {  //monster idle loop
+					if (monster_idle == 0) {
+						if (monster_count >= 18) {  //monster idle loop
 							easy_1_idle = 0;
 							cha_idle_on = 0;
 							SDL_RenderClear(renderer);
 							render_animation(easy_background_texture, easy_bg_count, 672, 378, 0, 0, 1200, 720);
+							easy_1 = 0;
+							death_on = 0;
 							fail_scene = 1;
 						}
 						render_animation(slime_attack_texture, monster_count, 80, 100, monster_position, 470, 140, 140);
@@ -581,8 +602,8 @@ int main(int argc, char* args[]) {
 					}
 				}
 
-				if (slime_idle == 1) {
-					if (monster_count == 9) {  //monster idle loop
+				if (monster_idle == 1) {
+					if (monster_count >= 9) {  //monster idle loop
 						monster_count = 0;
 					}
 					render_animation(slime_texture, monster_count, 80, 80, monster_position, 490, 140 ,140);
@@ -606,14 +627,16 @@ int main(int argc, char* args[]) {
 
 			if (easy_2 == 1) {
 				if (monster_health <= 0) {   //if health reach enter pass scene
+					easy_2 = 0;
 					easy_2_idle = 0;
 					cha_idle_on = 0;
-					easy_2 = 0;
 					easy_1_pass = 1;
 				}
 
 				if (turn_left == 0) {  //if run out of turn enter fail scene
 					death_on = 1;
+					monster_move = 1;
+					monster_idle = 0;
 					if (fail_scene == 0) {
 						easy_2_idle = 1;
 					}
@@ -625,26 +648,36 @@ int main(int argc, char* args[]) {
 						monster_position -= 10;
 					}
 					if (monster_position == 280) {
-						eye_idle = 0;
+						monster_move = 0;
 					}
-					if (eye_idle == 0) {
-						if (monster_count == 18) {  //monster idle loop
+					if (monster_move == 0) {
+						if (monster_count == 17) {  //monster idle loop
 							easy_2_idle = 0;
 							cha_idle_on = 0;
 							SDL_RenderClear(renderer);
 							render_animation(easy_background_texture, easy_bg_count, 672, 378, 0, 0, 1200, 720);
+							easy_2 = 0;
+							death_on = 0;
 							fail_scene = 1;
 						}
-						render_animation(slime_attack_texture, monster_count, 80, 100, monster_position, 470, 140, 140);
+						render_animation(eye_attack_texture, monster_count, 176, 176, monster_position, 440, 200, 200);
 						monster_count++;
 					}
 				}
 
-				if (eye_idle == 1) {
-					if (monster_count == 7) {   //character loop
+				if (monster_idle == 1) {
+					if (monster_count >= 7) {   //character loop
 						monster_count = 0;
 					}
 					render_animation(eye_texture, monster_count, 176, 176, monster_position, 440, 200, 200);
+					monster_count++;
+				}
+
+				if (monster_move == 1) {
+					if (monster_count >= 3) {   //character loop
+						monster_count = 0;
+					}
+					render_animation(eye_moving_texture, monster_count, 176, 176, monster_position, 440, 200, 200);
 					monster_count++;
 				}
 
