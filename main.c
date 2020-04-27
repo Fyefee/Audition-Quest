@@ -112,6 +112,16 @@ SDL_Texture* fire_knight_texture = NULL;
 SDL_Surface* fire_knight_attack_surface = NULL;
 SDL_Texture* fire_knight_attack_texture = NULL;
 
+SDL_Surface* fire_golem_surface = NULL;
+SDL_Texture* fire_golem_texture = NULL;
+SDL_Surface* fire_golem_attack_surface = NULL;
+SDL_Texture* fire_golem_attack_texture = NULL;
+
+SDL_Surface* fire_dragon_surface = NULL;
+SDL_Texture* fire_dragon_texture = NULL;
+SDL_Surface* fire_dragon_attack_surface = NULL;
+SDL_Texture* fire_dragon_attack_texture = NULL;
+
 //Create variable for text "start attack"
 SDL_Surface* text_start_attack_surface = NULL;
 SDL_Texture* text_start_attack_texture = NULL;
@@ -209,7 +219,7 @@ int main(int argc, char* args[]) {
 	easy_background_surface = IMG_Load("background/easy_bg.png");   //Render Button
 	easy_background_texture = SDL_CreateTextureFromSurface(renderer, easy_background_surface);
 
-	medium_background_surface = IMG_Load("background/medium_bg_sprite.png");   //Render Button
+	medium_background_surface = IMG_Load("background/medium/medium_bg_4_sprite.png");   //Render Button
 	medium_background_texture = SDL_CreateTextureFromSurface(renderer, medium_background_surface);
 
 	character_surface = IMG_Load("image/human_1/human_idle.png");   //Render Button
@@ -217,27 +227,35 @@ int main(int argc, char* args[]) {
 
 	slime_surface = IMG_Load("image/slime/slime_idle_sprite.png");   //Render Button
 	slime_texture = SDL_CreateTextureFromSurface(renderer, slime_surface);
-
 	slime_attack_surface = IMG_Load("image/slime/slime_attack_sprite.png");   //Render Button
 	slime_attack_texture = SDL_CreateTextureFromSurface(renderer, slime_attack_surface);
 
 	eye_surface = IMG_Load("image/monster_eye/eye_idle_sprite.png");   //Render Button
 	eye_texture = SDL_CreateTextureFromSurface(renderer, eye_surface);
-
 	eye_attack_surface = IMG_Load("image/monster_eye/eye_attack_sprite.png");   //Render Button
 	eye_attack_texture = SDL_CreateTextureFromSurface(renderer, eye_attack_surface);
-
 	eye_moving_surface = IMG_Load("image/monster_eye/eye_walk_sprite.png");   //Render Button
 	eye_moving_texture = SDL_CreateTextureFromSurface(renderer, eye_moving_surface);
 
 	fire_tiger_surface = IMG_Load("image/monster_fire_tiger/fire_tiger_idle_sprite.png");   //Render Button
 	fire_tiger_texture = SDL_CreateTextureFromSurface(renderer, fire_tiger_surface);
-
 	fire_tiger_attack_surface = IMG_Load("image/monster_fire_tiger/fire_tiger_attack_sprite.png");   //Render Button
 	fire_tiger_attack_texture = SDL_CreateTextureFromSurface(renderer, fire_tiger_attack_surface);
 
 	fire_knight_surface = IMG_Load("image/monster_fire_knight/fire_knight_idle_sprite.png");   //Render Button
 	fire_knight_texture = SDL_CreateTextureFromSurface(renderer, fire_knight_surface);
+	fire_knight_attack_surface = IMG_Load("image/monster_fire_knight/fire_knight_attack_sprite.png");   //Render Button
+	fire_knight_attack_texture = SDL_CreateTextureFromSurface(renderer, fire_knight_attack_surface);
+
+	fire_golem_surface = IMG_Load("image/monster_fire_golem/fire_golem_idle_sprite.png");   //Render Button
+	fire_golem_texture = SDL_CreateTextureFromSurface(renderer, fire_golem_surface);
+	fire_golem_attack_surface = IMG_Load("image/monster_fire_golem/fire_golem_attack_sprite.png");   //Render Button
+	fire_golem_attack_texture = SDL_CreateTextureFromSurface(renderer, fire_golem_attack_surface);
+
+	fire_dragon_surface = IMG_Load("image/monster_fire_dragon/fire_dragon_idle_sprite.png");   //Render Button
+	fire_dragon_texture = SDL_CreateTextureFromSurface(renderer, fire_dragon_surface);
+	fire_dragon_attack_surface = IMG_Load("image/monster_fire_dragon/fire_dragon_attack_sprite.png");   //Render Button
+	fire_dragon_attack_texture = SDL_CreateTextureFromSurface(renderer, fire_dragon_attack_surface);
 
 	health_bar_surface = IMG_Load("image/yellow.png");   //Render Button
 	health_bar_texture = SDL_CreateTextureFromSurface(renderer, health_bar_surface);
@@ -393,7 +411,9 @@ int main(int argc, char* args[]) {
 						fail_scene = 0;
 						menu_bg = 1;
 						menu_main_on = 1;
+						death_on = 0;
 						easy = 0;
+						medium = 0;
 					}
 
 					else if (menu_main_on == 1) {    //Check where selector in main menu is
@@ -438,6 +458,7 @@ int main(int argc, char* args[]) {
 							easy_1_mission = 1;
 							easy = 1;
 							bg_count = 0;
+							start_attack_on = 1;
 							break;
 						case 2:
 							menu_diffi = 0;
@@ -445,6 +466,7 @@ int main(int argc, char* args[]) {
 							medium_1_mission = 1;
 							medium = 1;
 							bg_count = 0;
+							start_attack_on = 1;
 							break;
 							break;
 						case 3:
@@ -607,55 +629,10 @@ int main(int argc, char* args[]) {
 							monster_idle = 1;
 							cha_idle_on = 1;
 							monster_position = 620;
-							max_monster_health = 35;
-							monster_health = 35;
-							healthbar_position_x = 865;
-							healthbar_position_y = 490;
-							sprintf(health, "Monster HP : %01d/%d", monster_health, max_monster_health);
-							message_surface_health = TTF_RenderText_Solid(sans, health, white);
-							message_texture_health = SDL_CreateTextureFromSurface(renderer, message_surface_health);
-
-							turn_left = 3;
-							sprintf(turn, "Turns Left : %01d/3", turn_left);
-							message_surface_turn = TTF_RenderText_Solid(sans, turn, white);
-							message_texture_turn = SDL_CreateTextureFromSurface(renderer, message_surface_turn);
-						}
-
-						else if (easy_1_idle == 1 && turn_left > 0) {   //Check to enter audition mode in easy mission 1
-							easy_1_idle = 0;
-							cha_idle_on = 0;
-							arrow_random_on = 1;
-							arrow_on = 1;
-							time_bar = 1100;
-							pos_attack = 250;
-							character_count = 0;
-							pos_x_cha_attack = 250;
-							score = 0;
-							fail = 0;
-							sprintf(fail_text, "Fail : %01d/3", fail);
-							message_surface_fail = TTF_RenderText_Solid(sans, fail_text, white);
-							message_texture_fail = SDL_CreateTextureFromSurface(renderer, message_surface_fail);
-							sprintf(score_text, "Score : %01d", score);
-							message_surface_score = TTF_RenderText_Solid(sans, score_text, white);
-							message_texture_score = SDL_CreateTextureFromSurface(renderer, message_surface_score);
-						}
-
-						else if (easy_1_pass == 1) {
-							easy_1_pass = 0;
-							easy_2_mission = 1;
-							death_on = 0;
-						}
-
-						else if (easy_2_mission == 1) {
-							easy_2_mission = 0;
-							easy_2 = 1;
-							easy_2_idle = 1;
-							cha_idle_on = 1;
-							monster_position = 800;
 							max_monster_health = 30;
-							monster_health = 30;
-							healthbar_position_x = 855;
-							healthbar_position_y = 475;
+							monster_health = 1; //30
+							healthbar_position_x = 805;
+							healthbar_position_y = 420;
 							sprintf(health, "Monster HP : %01d/%d", monster_health, max_monster_health);
 							message_surface_health = TTF_RenderText_Solid(sans, health, white);
 							message_texture_health = SDL_CreateTextureFromSurface(renderer, message_surface_health);
@@ -666,8 +643,8 @@ int main(int argc, char* args[]) {
 							message_texture_turn = SDL_CreateTextureFromSurface(renderer, message_surface_turn);
 						}
 
-						else if (easy_2_idle == 1 && turn_left > 0) {   //Check to enter audition mode in easy mission 1
-							easy_2_idle = 0;
+						else if (medium_1_idle == 1 && turn_left > 0) {   //Check to enter audition mode in easy mission 1
+							medium_1_idle = 0;
 							cha_idle_on = 0;
 							arrow_random_on = 1;
 							arrow_on = 1;
@@ -685,20 +662,65 @@ int main(int argc, char* args[]) {
 							message_texture_score = SDL_CreateTextureFromSurface(renderer, message_surface_score);
 						}
 
-						else if (easy_2_pass == 1) {
-							easy_2_pass = 0;
-							easy_3_mission = 1;
+						else if (medium_1_pass == 1) {
+							medium_1_pass = 0;
+							medium_2_mission = 1;
 							death_on = 0;
 						}
 
-						else if (easy_3_mission == 1) {
-							easy_3_mission = 0;
-							easy_3 = 1;
-							easy_3_idle = 1;
+						else if (medium_2_mission == 1) {
+							medium_2_mission = 0;
+							medium_2 = 1;
+							medium_2_idle = 1;
+							cha_idle_on = 1;
+							monster_position = 650;
+							max_monster_health = 40; 
+							monster_health = 1; //40
+							healthbar_position_x = 855;
+							healthbar_position_y = 420;
+							sprintf(health, "Monster HP : %01d/%d", monster_health, max_monster_health);
+							message_surface_health = TTF_RenderText_Solid(sans, health, white);
+							message_texture_health = SDL_CreateTextureFromSurface(renderer, message_surface_health);
+
+							turn_left = 3;
+							sprintf(turn, "Turns Left : %01d/3", turn_left);
+							message_surface_turn = TTF_RenderText_Solid(sans, turn, white);
+							message_texture_turn = SDL_CreateTextureFromSurface(renderer, message_surface_turn);
+						}
+
+						else if (medium_2_idle == 1 && turn_left > 0) {   //Check to enter audition mode in easy mission 1
+							medium_2_idle = 0;
+							cha_idle_on = 0;
+							arrow_random_on = 1;
+							arrow_on = 1;
+							time_bar = 1100;
+							pos_attack = 250;
+							character_count = 0;
+							pos_x_cha_attack = 250;
+							score = 0;
+							fail = 0;
+							sprintf(fail_text, "Fail : %01d/3", fail);
+							message_surface_fail = TTF_RenderText_Solid(sans, fail_text, white);
+							message_texture_fail = SDL_CreateTextureFromSurface(renderer, message_surface_fail);
+							sprintf(score_text, "Score : %01d", score);
+							message_surface_score = TTF_RenderText_Solid(sans, score_text, white);
+							message_texture_score = SDL_CreateTextureFromSurface(renderer, message_surface_score);
+						}
+
+						else if (medium_2_pass == 1) {
+							medium_2_pass = 0;
+							medium_3_mission = 1;
+							death_on = 0;
+						}
+
+						else if (medium_3_mission == 1) {
+							medium_3_mission = 0;
+							medium_3 = 1;
+							medium_3_idle = 1;
 							cha_idle_on = 1;
 							monster_position = 600;
-							max_monster_health = 40;
-							monster_health = 40;
+							max_monster_health = 55;
+							monster_health = 55;
 							healthbar_position_x = 830;
 							healthbar_position_y = 415;
 							sprintf(health, "Monster HP : %01d/%d", monster_health, max_monster_health);
@@ -711,8 +733,8 @@ int main(int argc, char* args[]) {
 							message_texture_turn = SDL_CreateTextureFromSurface(renderer, message_surface_turn);
 						}
 
-						else if (easy_3_idle == 1 && turn_left > 0) {   //Check to enter audition mode in easy mission 1
-							easy_3_idle = 0;
+						else if (medium_3_idle == 1 && turn_left > 0) {   //Check to enter audition mode in easy mission 1
+							medium_3_idle = 0;
 							cha_idle_on = 0;
 							arrow_random_on = 1;
 							arrow_on = 1;
@@ -730,8 +752,8 @@ int main(int argc, char* args[]) {
 							message_texture_score = SDL_CreateTextureFromSurface(renderer, message_surface_score);
 						}
 
-						else if (easy_3_pass == 1) {
-							easy_3_pass = 0;
+						else if (medium_3_pass == 1) {
+							medium_3_pass = 0;
 							menu_bg = 1;
 							menu_main_on = 1;
 							easy = 0;
@@ -750,19 +772,18 @@ int main(int argc, char* args[]) {
 		}
 
 		frameTime++;
-		frameTime_2++;
 
-		if (frameTime_2 == 100000 && arrow_stop == 1 && easy == 1) {
+		if (frameTime_2  == 5 && arrow_stop == 1 && easy == 1) {
 			arrow_stop = 0;
 			arrow_random_on = 1;
 		}
 
-		if (frameTime_2 == 75000 && arrow_stop == 1 && medium == 1) {
+		if (frameTime_2 == 4 && arrow_stop == 1 && medium == 1) {
 			arrow_stop = 0;
 			arrow_random_on = 1;
 		}
 		
-		if (frameTime % 35000 == 0 && menu_bg == 1) {  //render background and function in main menu
+		if (menu_bg == 1) {  //render background and function in main menu
 			SDL_RenderClear(renderer);  //clear renderer
 			if (menu_bg_count > 7) {   //check for loop background
 				menu_bg_count = 0;
@@ -783,9 +804,10 @@ int main(int argc, char* args[]) {
 			}
 			menu_bg_count++;  //move background
 			SDL_RenderPresent(renderer);  //render
+			delay_function(5000);
 		}
 
-		if (frameTime % 40000 == 0 && easy == 1) {
+		if (easy == 1) {
 			SDL_RenderClear(renderer);
 			if (bg_count == 17) {  //Background easy loop
 				bg_count = 0;
@@ -1118,21 +1140,23 @@ int main(int argc, char* args[]) {
 				character_count++;
 			}
 			bg_count++;
+			frameTime_2++;
 			SDL_RenderPresent(renderer);
+			delay_function(6000);
 		}
 
-		if (frameTime % 40000 == 0 && medium == 1) {
+		if (medium == 1) {
 			SDL_RenderClear(renderer);
 			if (bg_count == 7) {  //Background easy loop
 				bg_count = 0;
 			}
-			render_animation(medium_background_texture, bg_count, 800, 366, 0, 0, 1200, 720);
+			render_animation(medium_background_texture, bg_count, 504, 336, 0, 0, 1200, 720);
 
 			if (cha_idle_on == 1 && monster_health > 0) {
 				if (character_count == 11) {   //character loop
 					character_count = 0;
 				}
-				render_animation(character_texture, character_count, 91, 113, 250, 440, 158, 187);
+				render_animation(character_texture, character_count, 91, 113, 250, 490, 158, 187);
 				character_count++;
 			}
 
@@ -1154,23 +1178,24 @@ int main(int argc, char* args[]) {
 				}
 
 				if (death_on == 1) {
-					if (monster_position != 280) {
+					if (monster_position != 230) {
 						monster_position -= 10;
 					}
-					if (monster_position == 280) {
+					if (monster_position == 230 && monster_idle == 1) {
 						monster_idle = 0;
+						monster_count = 0;
 					}
 					if (monster_idle == 0) {
-						if (monster_count >= 18) {  //monster idle loop
+						if (monster_count >= 23) {  //monster idle loop
 							medium_1_idle = 0;
 							cha_idle_on = 0;
 							SDL_RenderClear(renderer);
-							render_animation(easy_background_texture, bg_count, 672, 378, 0, 0, 1200, 720);
+							render_animation(medium_background_texture, bg_count, 504, 336, 0, 0, 1200, 720);
 							medium_1 = 0;
 							death_on = 0;
 							fail_scene = 1;
 						}
-						render_animation(slime_attack_texture, monster_count, 80, 100, monster_position, 470, 140, 140);
+						render_animation(fire_knight_attack_texture, monster_count, 240, 240, monster_position, 220, 500, 500);
 						monster_count++;
 					}
 				}
@@ -1208,8 +1233,6 @@ int main(int argc, char* args[]) {
 
 				if (turn_left == 0 && monster_health > 0) {  //if run out of turn enter fail scene
 					death_on = 1;
-					monster_move = 1;
-					monster_idle = 0;
 					if (fail_scene == 0) {
 						medium_2_idle = 1;
 					}
@@ -1217,42 +1240,36 @@ int main(int argc, char* args[]) {
 				}
 
 				if (death_on == 1) {
-					if (monster_position != 280) {
+					if (monster_position != 230) {
 						monster_position -= 10;
 					}
-					if (monster_position == 280) {
-						monster_move = 0;
+					if (monster_position == 230 && monster_idle == 1) {
+						monster_idle = 0;
+						monster_count = 0;
 					}
-					if (monster_move == 0) {
-						if (monster_count == 17) {  //monster idle loop
+					if (monster_idle == 0) {
+						if (monster_count >= 22) {  //monster idle loop
 							medium_2_idle = 0;
 							cha_idle_on = 0;
 							SDL_RenderClear(renderer);
-							render_animation(easy_background_texture, bg_count, 672, 378, 0, 0, 1200, 720);
+							render_animation(medium_background_texture, bg_count, 504, 336, 0, 0, 1200, 720);
 							medium_2 = 0;
 							death_on = 0;
 							fail_scene = 1;
 						}
-						render_animation(eye_attack_texture, monster_count, 176, 176, monster_position, 440, 200, 200);
+						render_animation(fire_golem_attack_texture, monster_count, 600, 600, monster_position, 260, 480, 480);
 						monster_count++;
 					}
 				}
 
 				if (monster_idle == 1) {
-					if (monster_count >= 7) {   //character loop
+					if (monster_count >= 12) {   //character loop
 						monster_count = 0;
 					}
-					render_animation(eye_texture, monster_count, 176, 176, monster_position, 440, 200, 200);
+					render_animation(fire_golem_texture, monster_count, 600, 600, monster_position, 260, 480, 480);
 					monster_count++;
 				}
 
-				if (monster_move == 1) {
-					if (monster_count >= 3) {   //character loop
-						monster_count = 0;
-					}
-					render_animation(eye_moving_texture, monster_count, 176, 176, monster_position, 440, 200, 200);
-					monster_count++;
-				}
 
 				if (medium_2_idle == 1) {   // Chack easy 1 idle mode
 					arrow_random = 5;
@@ -1279,8 +1296,6 @@ int main(int argc, char* args[]) {
 
 				if (turn_left == 0 && monster_health > 0) {  //if run out of turn enter fail scene
 					death_on = 1;
-					monster_move = 1;
-					monster_idle = 0;
 					if (fail_scene == 0) {
 						medium_3_idle = 1;
 					}
@@ -1288,40 +1303,33 @@ int main(int argc, char* args[]) {
 				}
 
 				if (death_on == 1) {
-					if (monster_position != 280) {
+					if (monster_position != 220) {
 						monster_position -= 10;
 					}
-					if (monster_position == 280) {
-						monster_move = 0;
+					if (monster_position == 220 && monster_idle == 1) {
+						monster_idle = 0;
+						monster_count = 0;
 					}
-					if (monster_move == 0) {
-						if (monster_count == 10) {  //monster idle loop
+					if (monster_idle == 0) {
+						if (monster_count == 20) {  //monster idle loop
 							medium_3_idle = 0;
 							cha_idle_on = 0;
 							SDL_RenderClear(renderer);
-							render_animation(easy_background_texture, bg_count, 672, 378, 0, 0, 1200, 720);
+							render_animation(medium_background_texture, bg_count, 504, 336, 0, 0, 1200, 720);
 							medium_3 = 0;
 							death_on = 0;
 							fail_scene = 1;
 						}
-						render_animation(fire_tiger_attack_texture, monster_count, 560, 560, monster_position, 160, 560, 560);
+						render_animation(fire_dragon_attack_texture, monster_count, 720, 720, monster_position, 160, 560, 560);
 						monster_count++;
 					}
 				}
 
 				if (monster_idle == 1) {
-					if (monster_count >= 11) {   //character loop
+					if (monster_count >= 13) {   //character loop
 						monster_count = 0;
 					}
-					render_animation(fire_tiger_texture, monster_count, 560, 560, monster_position, 160, 560, 560);
-					monster_count++;
-				}
-
-				if (monster_move == 1) {
-					if (monster_count >= 11) {   //character loop
-						monster_count = 0;
-					}
-					render_animation(fire_tiger_texture, monster_count, 560, 560, monster_position, 160, 560, 560);
+					render_animation(fire_dragon_texture, monster_count, 720, 720, monster_position, 160, 560, 560);
 					monster_count++;
 				}
 
@@ -1364,7 +1372,7 @@ int main(int argc, char* args[]) {
 				if (arrow_random_on == 0) {
 
 					if (arrow_stop == 0) {
-						time_bar -= 10;    // Render time bar
+						time_bar -= 11;    // Render time bar
 					}
 					render_something(health_bar_bg_texture, 50, 50, 1100, 50);
 					render_something(health_bar_texture, 50, 50, time_bar, 50);
@@ -1388,7 +1396,7 @@ int main(int argc, char* args[]) {
 					character_count = 0;
 				}
 				pos_x_cha_attack = find_position(250, 500, time_bar);
-				render_animation(character_texture, character_count, 91, 113, pos_x_cha_attack, 440, 158, 187);
+				render_animation(character_texture, character_count, 91, 113, pos_x_cha_attack, 490, 158, 187);
 				character_count++;
 
 				health_bar = health_bar_width(monster_health, max_monster_health, 80); //render monster health in audition mode
@@ -1450,11 +1458,13 @@ int main(int argc, char* args[]) {
 					message_surface_turn = TTF_RenderText_Solid(sans, turn, white);
 					message_texture_turn = SDL_CreateTextureFromSurface(renderer, message_surface_turn);
 				}
-				render_animation(attack_2_texture, character_count, 154, 181, 720, 360, 248, 297);
+				render_animation(attack_2_texture, character_count, 154, 181, 680, 400, 248, 297);
 				character_count++;
 			}
 			bg_count++;
+			frameTime_2++;
 			SDL_RenderPresent(renderer);
+			delay_function(6000);
 		}
 	}
 	SDL_DestroyRenderer(renderer); // ทําลายตัว renderer
