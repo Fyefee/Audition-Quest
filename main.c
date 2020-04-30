@@ -129,6 +129,21 @@ SDL_Texture* dark_hammer_texture = NULL;
 SDL_Surface* dark_hammer_attack_surface = NULL;
 SDL_Texture* dark_hammer_attack_texture = NULL;
 
+SDL_Surface* dark_mage_surface = NULL;
+SDL_Texture* dark_mage_texture = NULL;
+SDL_Surface* dark_mage_attack_surface = NULL;
+SDL_Texture* dark_mage_attack_texture = NULL;
+
+SDL_Surface* dark_lord_surface = NULL;
+SDL_Texture* dark_lord_texture = NULL;
+SDL_Surface* dark_lord_attack_surface = NULL;
+SDL_Texture* dark_lord_attack_texture = NULL;
+
+SDL_Surface* dark_knight_surface = NULL;
+SDL_Texture* dark_knight_texture = NULL;
+SDL_Surface* dark_knight_attack_surface = NULL;
+SDL_Texture* dark_knight_attack_texture = NULL;
+
 //Create variable for text "start attack"
 SDL_Surface* text_start_attack_surface = NULL;
 SDL_Texture* text_start_attack_texture = NULL;
@@ -155,10 +170,10 @@ int medium = 0, medium_1 = 0, medium_2 = 0, medium_3 = 0;
 int medium_1_pass = 0, medium_2_pass = 0, medium_3_pass = 0;
 int medium_1_idle = 0, medium_2_idle = 0, medium_3_idle = 0;
 
-int hard_1_mission = 0, hard_2_mission = 0, hard_3_mission = 0;
-int hard = 0, hard_1 = 0, hard_2 = 0, hard_3 = 0;
-int hard_1_pass = 0, hard_2_pass = 0, hard_3_pass = 0;
-int hard_1_idle = 0, hard_2_idle = 0, hard_3_idle = 0;
+int hard_1_mission = 0, hard_2_mission = 0, hard_3_mission = 0, hard_4_mission = 0;
+int hard = 0, hard_1 = 0, hard_2 = 0, hard_3 = 0, hard_4 = 0;
+int hard_1_pass = 0, hard_2_pass = 0, hard_3_pass = 0, hard_4_pass = 0;
+int hard_1_idle = 0, hard_2_idle = 0, hard_3_idle = 0, hard_4_idle = 0;
 
 int bg_count = 0, character_count = 0, monster_count = 0;
 
@@ -276,6 +291,21 @@ int main(int argc, char* args[]) {
 	dark_hammer_texture = SDL_CreateTextureFromSurface(renderer, dark_hammer_surface);
 	dark_hammer_attack_surface = IMG_Load("image/monster_dark_hammer/dark_hammer_attack_sprite.png");   //Render Button
 	dark_hammer_attack_texture = SDL_CreateTextureFromSurface(renderer, dark_hammer_attack_surface);
+
+	dark_mage_surface = IMG_Load("image/monster_dark_mage/dark_mage_idle_sprite.png");   //Render Button
+	dark_mage_texture = SDL_CreateTextureFromSurface(renderer, dark_mage_surface);
+	dark_mage_attack_surface = IMG_Load("image/monster_dark_mage/dark_mage_attack_sprite.png");   //Render Button
+	dark_mage_attack_texture = SDL_CreateTextureFromSurface(renderer, dark_mage_attack_surface);
+
+	dark_lord_surface = IMG_Load("image/monster_dark_lord/dark_lord_idle_sprite.png");   //Render Button
+	dark_lord_texture = SDL_CreateTextureFromSurface(renderer, dark_lord_surface);
+	dark_lord_attack_surface = IMG_Load("image/monster_dark_lord/dark_lord_attack_sprite.png");   //Render Button
+	dark_lord_attack_texture = SDL_CreateTextureFromSurface(renderer, dark_lord_attack_surface);
+
+	dark_knight_surface = IMG_Load("image/monster_dark_knight/dark_knight_idle_sprite.png");   //Render Button
+	dark_knight_texture = SDL_CreateTextureFromSurface(renderer, dark_knight_surface);
+	dark_knight_attack_surface = IMG_Load("image/monster_dark_knight/dark_knight_attack_sprite.png");   //Render Button
+	dark_knight_attack_texture = SDL_CreateTextureFromSurface(renderer, dark_knight_attack_surface);
 
 	health_bar_surface = IMG_Load("image/yellow.png");   //Render Button
 	health_bar_texture = SDL_CreateTextureFromSurface(renderer, health_bar_surface);
@@ -434,6 +464,7 @@ int main(int argc, char* args[]) {
 						death_on = 0;
 						easy = 0;
 						medium = 0;
+						hard = 0;
 					}
 
 					else if (menu_main_on == 1) {    //Check where selector in main menu is
@@ -833,14 +864,14 @@ int main(int argc, char* args[]) {
 							death_on = 0;
 						}
 
-						else if (medium_2_mission == 1) {
-							medium_2_mission = 0;
-							medium_2 = 1;
-							medium_2_idle = 1;
+						else if (hard_2_mission == 1) {
+							hard_2_mission = 0;
+							hard_2 = 1;
+							hard_2_idle = 1;
 							cha_idle_on = 1;
 							monster_position = 650;
 							max_monster_health = 40;
-							monster_health = 40;
+							monster_health = 1;
 							healthbar_position_x = 855;
 							healthbar_position_y = 420;
 							sprintf(health, "Monster HP : %01d/%d", monster_health, max_monster_health);
@@ -853,8 +884,8 @@ int main(int argc, char* args[]) {
 							message_texture_turn = SDL_CreateTextureFromSurface(renderer, message_surface_turn);
 						}
 
-						else if (medium_2_idle == 1 && turn_left > 0) {   //Check to enter audition mode in easy mission 1
-							medium_2_idle = 0;
+						else if (hard_2_idle == 1 && turn_left > 0) {   //Check to enter audition mode in easy mission 1
+							hard_2_idle = 0;
 							cha_idle_on = 0;
 							arrow_random_on = 1;
 							arrow_on = 1;
@@ -1026,8 +1057,10 @@ int main(int argc, char* args[]) {
 							death_on = 0;
 							fail_scene = 1;
 						}
-						render_animation(slime_attack_texture, monster_count, 80, 100, monster_position, 470, 140, 140);
-						monster_count++;
+						else {
+							render_animation(slime_attack_texture, monster_count, 80, 100, monster_position, 470, 140, 140);
+							monster_count++;
+						}
 					}
 				}
 
@@ -1089,8 +1122,10 @@ int main(int argc, char* args[]) {
 							death_on = 0;
 							fail_scene = 1;
 						}
-						render_animation(eye_attack_texture, monster_count, 176, 176, monster_position, 440, 200, 200);
-						monster_count++;
+						else {
+							render_animation(eye_attack_texture, monster_count, 176, 176, monster_position, 440, 200, 200);
+							monster_count++;
+						}
 					}
 				}
 
@@ -1160,8 +1195,10 @@ int main(int argc, char* args[]) {
 							death_on = 0;
 							fail_scene = 1;
 						}
-						render_animation(fire_tiger_attack_texture, monster_count, 560, 560, monster_position, 160, 560, 560);
-						monster_count++;
+						else {
+							render_animation(fire_tiger_attack_texture, monster_count, 560, 560, monster_position, 160, 560, 560);
+							monster_count++;
+						}
 					}
 				}
 
@@ -1365,8 +1402,10 @@ int main(int argc, char* args[]) {
 							death_on = 0;
 							fail_scene = 1;
 						}
-						render_animation(fire_knight_attack_texture, monster_count, 240, 240, monster_position, 220, 500, 500);
-						monster_count++;
+						else {
+							render_animation(fire_knight_attack_texture, monster_count, 240, 240, monster_position, 220, 500, 500);
+							monster_count++;
+						}
 					}
 				}
 
@@ -1427,8 +1466,10 @@ int main(int argc, char* args[]) {
 							death_on = 0;
 							fail_scene = 1;
 						}
-						render_animation(fire_golem_attack_texture, monster_count, 600, 600, monster_position, 260, 480, 480);
-						monster_count++;
+						else {
+							render_animation(fire_golem_attack_texture, monster_count, 600, 600, monster_position, 260, 480, 480);
+							monster_count++;
+						}
 					}
 				}
 
@@ -1490,8 +1531,10 @@ int main(int argc, char* args[]) {
 							death_on = 0;
 							fail_scene = 1;
 						}
-						render_animation(fire_dragon_attack_texture, monster_count, 720, 720, monster_position, 160, 560, 560);
-						monster_count++;
+						else {
+							render_animation(fire_dragon_attack_texture, monster_count, 720, 720, monster_position, 160, 560, 560);
+							monster_count++;
+						}
 					}
 				}
 
@@ -1687,8 +1730,10 @@ int main(int argc, char* args[]) {
 							death_on = 0;
 							fail_scene = 1;
 						}
-						render_animation(dark_hammer_attack_texture, monster_count, 220, 220, monster_position, 220, 500, 500);
-						monster_count++;
+						else {
+							render_animation(dark_hammer_attack_texture, monster_count, 220, 220, monster_position, 220, 500, 500);
+							monster_count++;
+						}
 					}
 				}
 
@@ -1740,25 +1785,27 @@ int main(int argc, char* args[]) {
 						monster_count = 0;
 					}
 					if (monster_idle == 0) {
-						if (monster_count >= 22) {  //monster idle loop
+						if (monster_count >= 25) {  //monster idle loop
 							hard_2_idle = 0;
 							cha_idle_on = 0;
 							SDL_RenderClear(renderer);
-							render_animation(medium_background_texture, bg_count, 504, 336, 0, 0, 1200, 720);
+							render_animation(hard_background_texture, bg_count, 800, 336, 0, 0, 1200, 720);
 							hard_2 = 0;
 							death_on = 0;
 							fail_scene = 1;
 						}
-						render_animation(fire_golem_attack_texture, monster_count, 600, 600, monster_position, 260, 480, 480);
-						monster_count++;
+						else {
+							render_animation(dark_mage_attack_texture, monster_count, 480, 480, monster_position, 240, 480, 480);
+							monster_count++;
+						}
 					}
 				}
 
 				if (monster_idle == 1) {
-					if (monster_count >= 12) {   //character loop
+					if (monster_count >= 11) {   //character loop
 						monster_count = 0;
 					}
-					render_animation(fire_golem_texture, monster_count, 600, 600, monster_position, 260, 480, 480);
+					render_animation(dark_mage_texture, monster_count, 480, 480, monster_position, 240, 480, 480);
 					monster_count++;
 				}
 
