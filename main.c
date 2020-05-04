@@ -24,8 +24,14 @@ SDL_Surface* menu_main_button_surface = NULL;
 SDL_Texture* menu_main_button_texture = NULL;
 
 //Create variable for menu's selector
-SDL_Surface* menu_howtoplay_surface = NULL;
-SDL_Texture* menu_howtoplay_texture = NULL;
+SDL_Surface* menu_howtoplay_1_eng_surface = NULL;
+SDL_Texture* menu_howtoplay_1_eng_texture = NULL;
+SDL_Surface* menu_howtoplay_2_eng_surface = NULL;
+SDL_Texture* menu_howtoplay_2_eng_texture = NULL;
+SDL_Surface* menu_howtoplay_1_thai_surface = NULL;
+SDL_Texture* menu_howtoplay_1_thai_texture = NULL;
+SDL_Surface* menu_howtoplay_2_thai_surface = NULL;
+SDL_Texture* menu_howtoplay_2_thai_texture = NULL;
 
 //Create variable for menu's info scene
 SDL_Surface* menu_info_surface = NULL;
@@ -62,10 +68,50 @@ SDL_Texture* character_texture = NULL;
 //Create variable for easy mode mission 1 scene
 SDL_Surface* easy_1_mission_surface = NULL;
 SDL_Texture* easy_1_mission_texture = NULL;
+SDL_Surface* easy_2_mission_surface = NULL;
+SDL_Texture* easy_2_mission_texture = NULL;
+SDL_Surface* easy_3_mission_surface = NULL;
+SDL_Texture* easy_3_mission_texture = NULL;
+
+SDL_Surface* medium_1_mission_surface = NULL;
+SDL_Texture* medium_1_mission_texture = NULL;
+SDL_Surface* medium_2_mission_surface = NULL;
+SDL_Texture* medium_2_mission_texture = NULL;
+SDL_Surface* medium_3_mission_surface = NULL;
+SDL_Texture* medium_3_mission_texture = NULL;
+
+SDL_Surface* hard_1_mission_surface = NULL;
+SDL_Texture* hard_1_mission_texture = NULL;
+SDL_Surface* hard_2_mission_surface = NULL;
+SDL_Texture* hard_2_mission_texture = NULL;
+SDL_Surface* hard_3_mission_surface = NULL;
+SDL_Texture* hard_3_mission_texture = NULL;
+SDL_Surface* hard_4_mission_surface = NULL;
+SDL_Texture* hard_4_mission_texture = NULL;
 
 //Create variable for easy mode 1 pass scene
 SDL_Surface* easy_1_pass_surface = NULL;
 SDL_Texture* easy_1_pass_texture = NULL;
+SDL_Surface* easy_2_pass_surface = NULL;
+SDL_Texture* easy_2_pass_texture = NULL;
+SDL_Surface* easy_3_pass_surface = NULL;
+SDL_Texture* easy_3_pass_texture = NULL;
+
+SDL_Surface* medium_1_pass_surface = NULL;
+SDL_Texture* medium_1_pass_texture = NULL;
+SDL_Surface* medium_2_pass_surface = NULL;
+SDL_Texture* medium_2_pass_texture = NULL;
+SDL_Surface* medium_3_pass_surface = NULL;
+SDL_Texture* medium_3_pass_texture = NULL;
+
+SDL_Surface* hard_1_pass_surface = NULL;
+SDL_Texture* hard_1_pass_texture = NULL;
+SDL_Surface* hard_2_pass_surface = NULL;
+SDL_Texture* hard_2_pass_texture = NULL;
+SDL_Surface* hard_3_pass_surface = NULL;
+SDL_Texture* hard_3_pass_texture = NULL;
+SDL_Surface* hard_4_pass_surface = NULL;
+SDL_Texture* hard_4_pass_texture = NULL;
 
 //Create variable for fail scene
 SDL_Surface* fail_surface = NULL;
@@ -157,7 +203,7 @@ int running;
 int width = 1200, height = 720;    //Create width and height of program
 long long frameTime = 0, frameTime_2 = 0, keyboard_bug_fix = 0;    //Create frametime
 
-int menu_bg_count = 0 , menu_main_on = 1, menu_bg = 1, menu_how = 0, menu_diffi = 0, menu_info_on = 0;    //Create menu checker
+int menu_bg_count = 0 , menu_main_on = 1, menu_bg = 1, menu_how_1 = 0, menu_how_2 = 0, menu_how_language = 1, menu_diffi = 0, menu_info_on = 0;    //Create menu checker
 int selector_main = 1, selector_diff = 1;    //Create Selector in menu
 
 int easy_1_mission = 0, easy_2_mission = 0, easy_3_mission = 0;
@@ -198,47 +244,95 @@ int main(int argc, char* args[]) {
 	running = 1;   //set running to true
 	int lastTime = 0, currentTime;
 
-	TTF_Font* sans = TTF_OpenFont("font/HACKED.ttf", 100);   //Load font Hacked
+	TTF_Font* sans = TTF_OpenFont("font/MesseDuesseldorf-O1d3.ttf", 100);   //Load font Hacked
 	SDL_Color black = { 0, 0, 0 };   //Set black color
 	SDL_Color white = { 255, 255, 255 };
 
 	menu_bg_surface = IMG_Load("background/menu_bg.png");
 	menu_bg_texture = SDL_CreateTextureFromSurface(renderer, menu_bg_surface);
 
-	menu_main_button_surface = IMG_Load("image/menu_main_button.png");   //render button
+	menu_main_button_surface = IMG_Load("image/menu/main_menu.png");   //render button
 	menu_main_button_texture = SDL_CreateTextureFromSurface(renderer, menu_main_button_surface);
 
 	SDL_Rect arrow = { 470, 120, 250, 250 };
-	arrow_cool_right_surface = IMG_Load("image/arrow_cool/black/arrow_cool_right.png");  //render selector
+	arrow_cool_right_surface = IMG_Load("image/arrow/arrow_wood.png");  //render selector
 	arrow_cool_right_texture = SDL_CreateTextureFromSurface(renderer, arrow_cool_right_surface);
 
-	arrow_right_surface = IMG_Load("image/arrow_cool/yellow/arrow_right.png");  //render selector
+	arrow_right_surface = IMG_Load("image/arrow/yellow/arrow_right.png");  //render selector
 	arrow_right_texture = SDL_CreateTextureFromSurface(renderer, arrow_right_surface);
 
-	arrow_left_surface = IMG_Load("image/arrow_cool/yellow/arrow_left.png");  //render selector
+	arrow_left_surface = IMG_Load("image/arrow/yellow/arrow_left.png");  //render selector
 	arrow_left_texture = SDL_CreateTextureFromSurface(renderer, arrow_left_surface);
 
-	arrow_up_surface = IMG_Load("image/arrow_cool/yellow/arrow_up.png");  //render selector
+	arrow_up_surface = IMG_Load("image/arrow/yellow/arrow_up.png");  //render selector
 	arrow_up_texture = SDL_CreateTextureFromSurface(renderer, arrow_up_surface);
 
-	arrow_down_surface = IMG_Load("image/arrow_cool/yellow/arrow_down.png");  //render selector
+	arrow_down_surface = IMG_Load("image/arrow/yellow/arrow_down.png");  //render selector
 	arrow_down_texture = SDL_CreateTextureFromSurface(renderer, arrow_down_surface);
 
-	menu_howtoplay_surface = IMG_Load("image/menu_howtoplay.png");  //Render How To Play
-	menu_howtoplay_texture = SDL_CreateTextureFromSurface(renderer, menu_howtoplay_surface);
+	menu_howtoplay_1_eng_surface = IMG_Load("image/menu/menu_howtoplay_1_eng.png");  //Render How To Play
+	menu_howtoplay_1_eng_texture = SDL_CreateTextureFromSurface(renderer, menu_howtoplay_1_eng_surface);
 
-	menu_info_surface = IMG_Load("image/menu_info.png");   //Render Info
+	menu_howtoplay_2_eng_surface = IMG_Load("image/menu/menu_howtoplay_2_eng.png");  //Render How To Play
+	menu_howtoplay_2_eng_texture = SDL_CreateTextureFromSurface(renderer, menu_howtoplay_2_eng_surface);
+
+	menu_howtoplay_1_thai_surface = IMG_Load("image/menu/menu_howtoplay_1_thai.png");  //Render How To Play
+	menu_howtoplay_1_thai_texture = SDL_CreateTextureFromSurface(renderer, menu_howtoplay_1_thai_surface);
+
+	menu_howtoplay_2_thai_surface = IMG_Load("image/menu/menu_howtoplay_2_thai.png");  //Render How To Play
+	menu_howtoplay_2_thai_texture = SDL_CreateTextureFromSurface(renderer, menu_howtoplay_2_thai_surface);
+
+	menu_info_surface = IMG_Load("image/menu/menu_howtoplay_1_eng.png");   //Render Info
 	menu_info_texture = SDL_CreateTextureFromSurface(renderer, menu_info_surface);
 
-	menu_difficulty_surface = IMG_Load("image/menu_diff.png");   //Render Button
+	menu_difficulty_surface = IMG_Load("image/menu/menu_difficulty.png");   //Render Button
 	menu_difficulty_texture = SDL_CreateTextureFromSurface(renderer, menu_difficulty_surface);
 
 	easy_1_mission_surface = IMG_Load("image/mission/easy_1.png");   //Render Button
 	easy_1_mission_texture = SDL_CreateTextureFromSurface(renderer, easy_1_mission_surface);
-	SDL_Rect mission_rect = { 0, 0, 1200, 720 };
+	easy_2_mission_surface = IMG_Load("image/mission/easy_2.png");   //Render Button
+	easy_2_mission_texture = SDL_CreateTextureFromSurface(renderer, easy_2_mission_surface);
+	easy_3_mission_surface = IMG_Load("image/mission/easy_3.png");   //Render Button
+	easy_3_mission_texture = SDL_CreateTextureFromSurface(renderer, easy_3_mission_surface);
+
+	medium_1_mission_surface = IMG_Load("image/mission/medium_1.png");   //Render Button
+	medium_1_mission_texture = SDL_CreateTextureFromSurface(renderer, medium_1_mission_surface);
+	medium_2_mission_surface = IMG_Load("image/mission/medium_2.png");   //Render Button
+	medium_2_mission_texture = SDL_CreateTextureFromSurface(renderer, medium_2_mission_surface);
+	medium_3_mission_surface = IMG_Load("image/mission/medium_3.png");   //Render Button
+	medium_3_mission_texture = SDL_CreateTextureFromSurface(renderer, medium_3_mission_surface);
+
+	hard_1_mission_surface = IMG_Load("image/mission/hard_1.png");   //Render Button
+	hard_1_mission_texture = SDL_CreateTextureFromSurface(renderer, hard_1_mission_surface);
+	hard_2_mission_surface = IMG_Load("image/mission/hard_2.png");   //Render Button
+	hard_2_mission_texture = SDL_CreateTextureFromSurface(renderer, hard_2_mission_surface);
+	hard_3_mission_surface = IMG_Load("image/mission/hard_3.png");   //Render Button
+	hard_3_mission_texture = SDL_CreateTextureFromSurface(renderer, hard_3_mission_surface);
+	hard_4_mission_surface = IMG_Load("image/mission/hard_4.png");   //Render Button
+	hard_4_mission_texture = SDL_CreateTextureFromSurface(renderer, hard_4_mission_surface);
 
 	easy_1_pass_surface = IMG_Load("image/mission/easy_1_pass.png");   //Render Button
 	easy_1_pass_texture = SDL_CreateTextureFromSurface(renderer, easy_1_pass_surface);
+	easy_2_pass_surface = IMG_Load("image/mission/easy_2_pass.png");   //Render Button
+	easy_2_pass_texture = SDL_CreateTextureFromSurface(renderer, easy_2_pass_surface);
+	easy_3_pass_surface = IMG_Load("image/mission/easy_3_pass.png");   //Render Button
+	easy_3_pass_texture = SDL_CreateTextureFromSurface(renderer, easy_3_pass_surface);
+
+	medium_1_pass_surface = IMG_Load("image/mission/medium_1_pass.png");   //Render Button
+	medium_1_pass_texture = SDL_CreateTextureFromSurface(renderer, medium_1_pass_surface);
+	medium_2_pass_surface = IMG_Load("image/mission/medium_2_pass.png");   //Render Button
+	medium_2_pass_texture = SDL_CreateTextureFromSurface(renderer, medium_2_pass_surface);
+	medium_3_pass_surface = IMG_Load("image/mission/medium_3_pass.png");   //Render Button
+	medium_3_pass_texture = SDL_CreateTextureFromSurface(renderer, medium_3_pass_surface);
+
+	hard_1_pass_surface = IMG_Load("image/mission/hard_1_pass.png");   //Render Button
+	hard_1_pass_texture = SDL_CreateTextureFromSurface(renderer, hard_1_pass_surface);
+	hard_2_pass_surface = IMG_Load("image/mission/hard_2_pass.png");   //Render Button
+	hard_2_pass_texture = SDL_CreateTextureFromSurface(renderer, hard_2_pass_surface);
+	hard_3_pass_surface = IMG_Load("image/mission/hard_3_pass.png");   //Render Button
+	hard_3_pass_texture = SDL_CreateTextureFromSurface(renderer, hard_3_pass_surface);
+	hard_4_pass_surface = IMG_Load("image/mission/hard_4_pass.png");   //Render Button
+	hard_4_pass_texture = SDL_CreateTextureFromSurface(renderer, hard_4_pass_surface);
 
 	fail_surface = IMG_Load("image/mission/fail.png");   //Render Button
 	fail_texture = SDL_CreateTextureFromSurface(renderer, fail_surface);
@@ -412,7 +506,7 @@ int main(int argc, char* args[]) {
 					break;
 				case SDLK_LEFT:
 					keyboard_bug_fix = 1;
-					if (arrow_random_on == 0) {   //Check arrow while in audition mode
+					if (arrow_random_on == 0 && (easy || medium || hard)) {   //Check arrow while in audition mode
 						if (arrow_random == 2) {
 							arrow_random = 4;
 							arrow_stop = 1;
@@ -430,11 +524,15 @@ int main(int argc, char* args[]) {
 							message_texture_fail = SDL_CreateTextureFromSurface(renderer, message_surface_fail);
 						}
 					}
+					else if (menu_how_2) {
+						menu_how_1 = 1;
+						menu_how_2 = 0;
+					}
 					
 					break;
 				case SDLK_RIGHT:
 					keyboard_bug_fix = 1;
-					if (arrow_random_on == 0) {   //Check arrow while in audition mode
+					if (arrow_random_on == 0 && (easy || medium || hard)) {   //Check arrow while in audition mode
 						if (arrow_random == 3) {
 							arrow_random = 4;
 							arrow_stop = 1;
@@ -451,6 +549,10 @@ int main(int argc, char* args[]) {
 							message_surface_fail = TTF_RenderText_Solid(sans, fail_text, white);
 							message_texture_fail = SDL_CreateTextureFromSurface(renderer, message_surface_fail);
 						}
+					}
+					else if (menu_how_1){
+						menu_how_1 = 0;
+						menu_how_2 = 1;
 					}
 					
 					break;
@@ -473,9 +575,10 @@ int main(int argc, char* args[]) {
 							case 1:
 								menu_diffi = 1;
 								menu_main_on = 0;
+								selector_diff = 1;
 								break;
 							case 2:
-								menu_how = 1;
+								menu_how_1 = 1;
 								menu_main_on = 0;
 								break;
 							case 3:
@@ -490,8 +593,9 @@ int main(int argc, char* args[]) {
 						}
 					} 
 
-					else if (menu_how == 1) {   //For return to main menu in how to play screen
-						menu_how = 0;
+					else if (menu_how_1 == 1 || menu_how_2 == 1) {   //For return to main menu in how to play screen
+						menu_how_1 = 0;
+						menu_how_2 = 0;
 						menu_main_on = 1;
 					}
 
@@ -686,7 +790,7 @@ int main(int argc, char* args[]) {
 							cha_idle_on = 1;
 							monster_position = 620;
 							max_monster_health = 30;
-							monster_health = 1; //30
+							monster_health = 30; //30
 							healthbar_position_x = 805;
 							healthbar_position_y = 420;
 							sprintf(health, "Monster HP : %01d/%d", monster_health, max_monster_health);
@@ -731,7 +835,7 @@ int main(int argc, char* args[]) {
 							cha_idle_on = 1;
 							monster_position = 650;
 							max_monster_health = 40; 
-							monster_health = 1; //40
+							monster_health = 40; //40
 							healthbar_position_x = 855;
 							healthbar_position_y = 420;
 							sprintf(health, "Monster HP : %01d/%d", monster_health, max_monster_health);
@@ -1002,6 +1106,15 @@ int main(int argc, char* args[]) {
 					}
 
 					break;
+				
+				case SDLK_SPACE:
+					if (menu_how_language == 1) {
+						menu_how_language = 2;
+					}
+					else if (menu_how_language == 2) {
+						menu_how_language = 1;
+					}
+					break;
 				default:
 					break;
 				}
@@ -1039,8 +1152,17 @@ int main(int argc, char* args[]) {
 			if (menu_main_on == 1) {  //render button in mainmenu
 				menu_button_render(menu_main_button_texture, selector_main, arrow_cool_right_texture);
 			}
-			if (menu_how == 1) {   //render how to play menu
-				render_something(menu_howtoplay_texture, 0, 0, 1200, 720);
+			if (menu_how_1 == 1 && menu_how_language == 1) {   //render how to play menu
+				render_something(menu_howtoplay_1_eng_texture, 0, 0, 1200, 720);
+			}
+			if (menu_how_2 == 1 && menu_how_language == 1) {   //render how to play menu
+				render_something(menu_howtoplay_2_eng_texture, 0, 0, 1200, 720);
+			}
+			if (menu_how_1 == 1 && menu_how_language == 2) {   //render how to play menu
+				render_something(menu_howtoplay_1_thai_texture, 0, 0, 1200, 720);
+			}
+			if (menu_how_2 == 1 && menu_how_language == 2) {   //render how to play menu
+				render_something(menu_howtoplay_2_thai_texture, 0, 0, 1200, 720);
 			}
 			if (menu_diffi == 1) {  //render difficulty select menu
 				menu_difficulty_render(menu_difficulty_texture, selector_diff, arrow_cool_right_texture);
@@ -1339,11 +1461,11 @@ int main(int argc, char* args[]) {
 			}
 
 			if (easy_2_mission == 1) {  // Render easy mission 1
-				render_something(easy_1_mission_texture, 0, 0, 1200, 720);
+				render_something(easy_2_mission_texture, 0, 0, 1200, 720);
 			}
 
 			if (easy_3_mission == 1) {  // Render easy mission 1
-				render_something(easy_1_mission_texture, 0, 0, 1200, 720);
+				render_something(easy_3_mission_texture, 0, 0, 1200, 720);
 			}
 
 			if (easy_1_pass == 1) {   // Render easy 1 pass
@@ -1351,11 +1473,11 @@ int main(int argc, char* args[]) {
 			}
 
 			if (easy_2_pass == 1) {   // Render easy 1 pass
-				render_something(easy_1_pass_texture, 0, 0, 1200, 720);
+				render_something(easy_2_pass_texture, 0, 0, 1200, 720);
 			}
 
 			if (easy_3_pass == 1) {   // Render easy 1 pass
-				render_something(easy_1_pass_texture, 0, 0, 1200, 720);
+				render_something(easy_3_pass_texture, 0, 0, 1200, 720);
 			}
 
 			if (fail_scene == 1) {   //Render Fail Scene
@@ -1663,27 +1785,27 @@ int main(int argc, char* args[]) {
 			}
 
 			if (medium_1_mission == 1) {  // Render easy mission 1
-				render_something(easy_1_mission_texture, 0, 0, 1200, 720);
+				render_something(medium_1_mission_texture, 0, 0, 1200, 720);
 			}
 
 			if (medium_2_mission == 1) {  // Render easy mission 1
-				render_something(easy_1_mission_texture, 0, 0, 1200, 720);
+				render_something(medium_2_mission_texture, 0, 0, 1200, 720);
 			}
 
 			if (medium_3_mission == 1) {  // Render easy mission 1
-				render_something(easy_1_mission_texture, 0, 0, 1200, 720);
+				render_something(medium_3_mission_texture, 0, 0, 1200, 720);
 			}
 
 			if (medium_1_pass == 1) {   // Render easy 1 pass
-				render_something(easy_1_pass_texture, 0, 0, 1200, 720);
+				render_something(medium_1_pass_texture, 0, 0, 1200, 720);
 			}
 
 			if (medium_2_pass == 1) {   // Render easy 1 pass
-				render_something(easy_1_pass_texture, 0, 0, 1200, 720);
+				render_something(medium_2_pass_texture, 0, 0, 1200, 720);
 			}
 
 			if (medium_3_pass == 1) {   // Render easy 1 pass
-				render_something(easy_1_pass_texture, 0, 0, 1200, 720);
+				render_something(medium_3_pass_texture, 0, 0, 1200, 720);
 			}
 
 			if (fail_scene == 1) {   //Render Fail Scene
@@ -2051,35 +2173,35 @@ int main(int argc, char* args[]) {
 			}
 
 			if (hard_1_mission == 1) {  // Render easy mission 1
-				render_something(easy_1_mission_texture, 0, 0, 1200, 720);
+				render_something(hard_1_mission_texture, 0, 0, 1200, 720);
 			}
 
 			if (hard_2_mission == 1) {  // Render easy mission 1
-				render_something(easy_1_mission_texture, 0, 0, 1200, 720);
+				render_something(hard_2_mission_texture, 0, 0, 1200, 720);
 			}
 
 			if (hard_3_mission == 1) {  // Render easy mission 1
-				render_something(easy_1_mission_texture, 0, 0, 1200, 720);
+				render_something(hard_3_mission_texture, 0, 0, 1200, 720);
 			}
 
 			if (hard_4_mission == 1) {  // Render easy mission 1
-				render_something(easy_1_mission_texture, 0, 0, 1200, 720);
+				render_something(hard_4_mission_texture, 0, 0, 1200, 720);
 			}
 
 			if (hard_1_pass == 1) {   // Render easy 1 pass
-				render_something(easy_1_pass_texture, 0, 0, 1200, 720);
+				render_something(hard_1_pass_texture, 0, 0, 1200, 720);
 			}
 
 			if (hard_2_pass == 1) {   // Render easy 1 pass
-				render_something(easy_1_pass_texture, 0, 0, 1200, 720);
+				render_something(hard_2_pass_texture, 0, 0, 1200, 720);
 			}
 
 			if (hard_3_pass == 1) {   // Render easy 1 pass
-				render_something(easy_1_pass_texture, 0, 0, 1200, 720);
+				render_something(hard_3_pass_texture, 0, 0, 1200, 720);
 			}
 
 			if (hard_4_pass == 1) {   // Render easy 1 pass
-				render_something(easy_1_pass_texture, 0, 0, 1200, 720);
+				render_something(hard_4_pass_texture, 0, 0, 1200, 720);
 			}
 
 			if (fail_scene == 1) {   //Render Fail Scene
@@ -2146,15 +2268,15 @@ int render_something(texture, pos_rect_x, pos_rect_y, rect_x, rect_y) {
 int menu_button_render(button_texture, selector, arrow_texture) {
 	int y = 0;
 	switch (selector){
-	case 1: y = 240; break;
-	case 2: y = 360; break;
-	case 3: y = 450; break;
-	case 4: y = 560; break;
+	case 1: y = 280; break;
+	case 2: y = 390; break;
+	case 3: y = 490; break;
+	case 4: y = 600; break;
 	default: break;
 	}
-	SDL_Rect menu_selector_rect = { 270, y, 163, 128 };
-	SDL_Rect menu_button_rect = { 0, 0, 1200, 720 };
-	SDL_RenderCopy(renderer, button_texture, NULL, &menu_button_rect);
+	SDL_Rect menu_selector_rect = { 340, y, 80, 80 };
+	SDL_Rect menu_bg_rect = { 0, 0, 1200, 720 };
+	SDL_RenderCopy(renderer, button_texture, NULL, &menu_bg_rect);
 	SDL_RenderCopy(renderer, arrow_texture, NULL, &menu_selector_rect);
 }
 
@@ -2162,15 +2284,21 @@ int menu_difficulty_render(diff_texture, selector) {
 	int y = 0;
 	switch (selector) { //Check where selector is
 	case 1: y = 90; break;
-	case 2: y = 240; break;
-	case 3: y = 390; break;
+	case 2: y = 250; break;
+	case 3: y = 410; break;
 	case 4: y = 570; break;
 	default: break;
 	}
 	SDL_Rect menu_rect = { 0, 0, 1200, 720 };
-	SDL_Rect selector_rect = { 200, y, 163, 128 };
 	SDL_RenderCopy(renderer, diff_texture, NULL, &menu_rect);
-	SDL_RenderCopy(renderer, arrow_cool_right_texture, NULL, &selector_rect);
+	if (selector != 4) {
+		SDL_Rect selector_rect = { 260, y, 100, 100 };
+		SDL_RenderCopy(renderer, arrow_cool_right_texture, NULL, &selector_rect);
+	}
+	else {
+		SDL_Rect selector_rect = { 300, y, 100, 100 };
+		SDL_RenderCopy(renderer, arrow_cool_right_texture, NULL, &selector_rect);
+	}
 }
 
 int delay_function(delay_diff) {
