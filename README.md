@@ -1,5 +1,5 @@
 # Audition Quest : Game
-<img src="src/page/logo.png" width="120px" height="150px">
+<img src="src/page/logo.png" width="300px" height="150px">
 This repository is a project in Computer Programming, 
 Faculty of Information Technology King Mongkut's Institute of Technology Ladkrabang (IT KMITL).<br>
 
