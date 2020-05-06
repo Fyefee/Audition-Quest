@@ -17,7 +17,8 @@ Finish: -</h6>
 - ใส่วีดีโอ ตรงนี้ 
 
 ## In Game :video_game:
-<img src="src/page/game1.jpg" width="300px" height="180px"> <img src="src/page/game2.jpg" width="300px" height="180px">
+<img src="src/page/game1.jpg" width="350px" height="230px"> <img src="src/page/game2.jpg" width="350px" height="230px">
+<img src="src/page/game3.jpg" width="350px" height="230px"> <img src="src/page/game4.jpg" width="350px" height="230px">
 
 
 ## Author :computer:
