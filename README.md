@@ -20,7 +20,7 @@ Finish: -</h6>
 <img src="src/page/game1.jpg" width="350px" height="230px"> <img src="src/page/game5.jpg" width="350px" height="230px">
 <img src="src/page/game3.jpg" width="350px" height="230px"> <img src="src/page/game4.jpg" width="350px" height="230px">
 
-## Difficulty :video_game:
+## Difficulty :space_invader:
 <img src="src/page/game2.jpg" width="350px" height="230px">
 
 ## Author :computer:
