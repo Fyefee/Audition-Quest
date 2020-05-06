@@ -12,6 +12,12 @@ Finish: -</h6>
 ## Benefits
 ฝึกสมาธิ ความอดทนและการตอบสนองของร่างกาย โดยใช้เกมในการทำให้อยากเล่น
 
+## Video Presentation
+- ใส่วีดีโอ ตรงนี้ -
+
+## In Game
+- ใส่ภาพ ตรงนี้ -
+
 ## Author :computer::
 
 |<img src="src/img-member/61070196.jpg" width="130px" height="150px">|<img src="src/img-member/61070230.jpg" width="120px" height="150px">|<img src="src/img-member/61070270.jpg" width="120px" height="150px">|<img src="src/img-member/62070045.jpg" width="140px" height="150px">|
