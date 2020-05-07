@@ -2,8 +2,6 @@
 <img src="src/page/logo.png" width="600px" height="360px">
 This repository is a project in Computer Programming, 
 Faculty of Information Technology King Mongkut's Institute of Technology Ladkrabang (IT KMITL).<br>
-
-<h4>link Video - <br>
 <h6>Start: 24-Jan-2020<br>
 Finish: 7-May-2020</h6>
 
@@ -14,6 +12,7 @@ Finish: 7-May-2020</h6>
 ฝึกสมาธิ ความอดทนและการตอบสนองของร่างกาย โดยใช้เกมในการทำให้อยากเล่น
 
 ## Video Presentation :clapper:
+<h4>link Video - </h4><br>
 - ใส่วีดีโอ ตรงนี้ 
 
 ## Built With :wrench:
@@ -35,8 +34,8 @@ Finish: 7-May-2020</h6>
 ## How to play (TH/EN) :bulb:
 - If turns left = 0 and monster still alive your character will be.
 - If time bar run out or you fail 3 times. The character will attack monster (damage depends on score).<br><br>
-<img src="src/page/game6.jpg" width="350px" height="230px"> <img src="src/page/game7.jpg" width="350px" height="230px">
 <img src="src/page/game8.jpg" width="350px" height="230px"> <img src="src/page/game9.jpg" width="350px" height="230px">
+<img src="src/page/game6.jpg" width="350px" height="230px"> <img src="src/page/game7.jpg" width="350px" height="230px">
 
 ## Author :computer:
 
