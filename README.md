@@ -16,6 +16,15 @@ Finish: 7-May-2020</h6>
 ## Video Presentation :clapper:
 - ใส่วีดีโอ ตรงนี้ 
 
+## Built With :wrench:
+- C Language.
+- Library SDL.
+
+## Download :open_file_folder:
+- Download zip file from here.
+- Extract the file.
+- Run "Audition Quest.exe" to start.
+
 ## In Game :video_game:
 <img src="src/page/game1.jpg" width="350px" height="230px"> <img src="src/page/game5.jpg" width="350px" height="230px">
 <img src="src/page/game3.jpg" width="350px" height="230px"> <img src="src/page/game4.jpg" width="350px" height="230px">
