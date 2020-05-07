@@ -25,8 +25,8 @@ Finish: 7-May-2020</h6>
 - Run "Audition Quest.exe" to start.
 
 ## In Game :video_game:
-<img src="src/page/game1.jpg" width="350px" height="230px"> <img src="src/page/game5.jpg" width="350px" height="230px">
-<img src="src/page/game3.jpg" width="350px" height="230px"> <img src="src/page/game4.jpg" width="350px" height="230px">
+<img src="src/in-game/menu.gif" width="350px" height="230px"> <img src="src/page/game5.jpg" width="350px" height="230px">
+<img src="src/in-game/idle.gif" width="350px" height="230px"> <img src="src/in-game/attack.gif" width="350px" height="230px">
 
 ## Difficulty :space_invader:
 <img src="src/page/game2.jpg" width="350px" height="230px">
