@@ -32,8 +32,10 @@ Finish: 7-May-2020</h6>
 ## Difficulty :space_invader:
 <img src="src/page/game2.jpg" width="350px" height="230px">
 
-## How to play :bulb:
-<img src="src/page/game6.jpg" width="350px" height="230px">
+## How to play (TH/EN) :bulb:
+- If turns left = 0 and monster still alive your character will be.
+- If time bar run out or you fail 3 times. the character will attack monster (damage depends on score).
+<img src="src/page/game6.jpg" width="350px" height="230px"><img src="src/page/game7.jpg" width="350px" height="230px">
 
 ## Author :computer:
 
