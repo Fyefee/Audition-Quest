@@ -38,7 +38,6 @@ Finish: 8-May-2020</h6>
 <img src="src/page/game6.jpg" width="350px" height="230px"> <img src="src/page/game7.jpg" width="350px" height="230px">
 
 ## Author :computer:
-
 |<img src="src/img-member/61070196.jpg" width="130px" height="150px">|<img src="src/img-member/61070230.jpg" width="120px" height="150px">|<img src="src/img-member/61070270.jpg" width="120px" height="150px">|<img src="src/img-member/62070045.jpg" width="140px" height="150px">|
 |:---:|:---:|:---:|:---:|
 |[WorachetNimcharoen](https://github.com/WorachetNimcharoen)|[jinnygym](https://github.com/jinnygym)|[ArayaThongleg](https://github.com/ArayaThongleg)|[jeffy34931](https://github.com/jeffy34931)|
