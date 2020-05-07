@@ -21,7 +21,7 @@ Finish: 7-May-2020</h6>
 - Library SDL.
 
 ## Download :open_file_folder:
-- Download zip file from here.
+- Download zip file from [here](https://github.com/jeffy34931/Compro_Project)
 - Extract the file.
 - Run "Audition Quest.exe" to start.
 
