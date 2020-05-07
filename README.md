@@ -36,7 +36,6 @@ Finish: 7-May-2020</h6>
 - If turns left = 0 and monster still alive your character will be.
 - If time bar run out or you fail 3 times. The character will attack monster (damage depends on score).<br><br>
 <img src="src/page/game6.jpg" width="350px" height="230px"> <img src="src/page/game7.jpg" width="350px" height="230px">
-
 <img src="src/page/game8.jpg" width="350px" height="230px"> <img src="src/page/game9.jpg" width="350px" height="230px">
 
 ## Author :computer:
