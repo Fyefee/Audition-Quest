@@ -1,12 +1,12 @@
-#include <SDL.h> // âËÅ´ library SDL
-#include <SDL_image.h> // âËÅ´ library SDL_image
+#include <SDL.h> // ï¿½ï¿½Å´ library SDL
+#include <SDL_image.h> // ï¿½ï¿½Å´ library SDL_image
 #include <SDL_ttf.h>
-#include <stdio.h>  // âËÅ´ library stdio
-#include <string.h>  // âËÅ´ library string.h
-#include <stdlib.h>  // âËÅ´ library stdlib.h
-#include <ctype.h>  // âËÅ´ library ctype
+#include <stdio.h>  // ï¿½ï¿½Å´ library stdio
+#include <string.h>  // ï¿½ï¿½Å´ library string.h
+#include <stdlib.h>  // ï¿½ï¿½Å´ library stdlib.h
+#include <ctype.h>  // ï¿½ï¿½Å´ library ctype
 #include <stdbool.h>
-#include <time.h> 
+#include <time.h>
 #include <conio.h>
 #include <string.h>
 #include <math.h>
@@ -282,7 +282,7 @@ int main(int argc, char* args[]) {
 	menu_howtoplay_2_thai_surface = IMG_Load("image/menu/menu_howtoplay_2_thai.png");  //Render How To Play
 	menu_howtoplay_2_thai_texture = SDL_CreateTextureFromSurface(renderer, menu_howtoplay_2_thai_surface);
 
-	menu_info_surface = IMG_Load("image/menu/menu_howtoplay_1_eng.png");   //Render Info
+	menu_info_surface = IMG_Load("image/menu/menu_info.png");   //Render Info
 	menu_info_texture = SDL_CreateTextureFromSurface(renderer, menu_info_surface);
 
 	menu_difficulty_surface = IMG_Load("image/menu/menu_difficulty.png");   //Render Button
@@ -528,7 +528,7 @@ int main(int argc, char* args[]) {
 						menu_how_1 = 1;
 						menu_how_2 = 0;
 					}
-					
+
 					break;
 				case SDLK_RIGHT:
 					keyboard_bug_fix = 1;
@@ -554,7 +554,7 @@ int main(int argc, char* args[]) {
 						menu_how_1 = 0;
 						menu_how_2 = 1;
 					}
-					
+
 					break;
 				case SDLK_RETURN:   //Check button ENTER
 					keyboard_bug_fix = 1;
@@ -591,7 +591,7 @@ int main(int argc, char* args[]) {
 							default:
 								break;
 						}
-					} 
+					}
 
 					else if (menu_how_1 == 1 || menu_how_2 == 1) {   //For return to main menu in how to play screen
 						menu_how_1 = 0;
@@ -642,7 +642,7 @@ int main(int argc, char* args[]) {
 
 					else if (easy == 1) {
 
-						if (easy_1_mission == 1) {   //Check Enter while in easy mission 1 scene 
+						if (easy_1_mission == 1) {   //Check Enter while in easy mission 1 scene
 							easy_1_mission = 0;
 							easy_1 = 1;
 							easy_1_idle = 1;
@@ -651,7 +651,7 @@ int main(int argc, char* args[]) {
 							monster_position = 830;
 							max_monster_health = 20;
 							monster_health = 20;
-							healthbar_position_x = 865; 
+							healthbar_position_x = 865;
 							healthbar_position_y = 490;
 							sprintf(health, "Monster HP : %01d/%d", monster_health, max_monster_health);
 							message_surface_health = TTF_RenderText_Solid(sans, health, white);
@@ -782,7 +782,7 @@ int main(int argc, char* args[]) {
 
 					else if (medium == 1) {
 
-						if (medium_1_mission == 1) {   //Check Enter while in easy mission 1 scene 
+						if (medium_1_mission == 1) {   //Check Enter while in easy mission 1 scene
 							medium_1_mission = 0;
 							medium_1 = 1;
 							medium_1_idle = 1;
@@ -834,7 +834,7 @@ int main(int argc, char* args[]) {
 							medium_2_idle = 1;
 							cha_idle_on = 1;
 							monster_position = 650;
-							max_monster_health = 40; 
+							max_monster_health = 40;
 							monster_health = 40; //40
 							healthbar_position_x = 855;
 							healthbar_position_y = 420;
@@ -922,7 +922,7 @@ int main(int argc, char* args[]) {
 
 					else if (hard == 1) {
 
-						if (hard_1_mission == 1) {   //Check Enter while in easy mission 1 scene 
+						if (hard_1_mission == 1) {   //Check Enter while in easy mission 1 scene
 							hard_1_mission = 0;
 							hard_1 = 1;
 							hard_1_idle = 1;
@@ -1106,7 +1106,7 @@ int main(int argc, char* args[]) {
 					}
 
 					break;
-				
+
 				case SDLK_SPACE:
 					if (menu_how_language == 1) {
 						menu_how_language = 2;
@@ -1141,7 +1141,7 @@ int main(int argc, char* args[]) {
 			arrow_stop = 0;
 			arrow_random_on = 1;
 		}
-		
+
 		if (menu_bg == 1) {  //render background and function in main menu
 			SDL_RenderClear(renderer);  //clear renderer
 			if (menu_bg_count > 7) {   //check for loop background
@@ -1206,7 +1206,7 @@ int main(int argc, char* args[]) {
 					}
 					start_attack_on = 0;
 				}
-				
+
 				if (death_on == 1) {
 					if (monster_position != 280) {
 						monster_position -= 10;
@@ -1499,7 +1499,7 @@ int main(int argc, char* args[]) {
 						easy_3_idle = 1;
 					}
 					cha_idle_on = 1;
-						
+
 					monster_health -= score;
 					sprintf(health, "Monster HP : %01d/%d", monster_health, max_monster_health);
 					message_surface_health = TTF_RenderText_Solid(sans, health, white);
@@ -2246,10 +2246,10 @@ int main(int argc, char* args[]) {
 			delay_function(6000);
 		}
 	}
-	SDL_DestroyRenderer(renderer); // ·íÒÅÒÂµÑÇ renderer
-	SDL_DestroyWindow(window); // ·íÒÅÒÂË¹éÒµèÒ§â»Ãá¡ÃÁ
+	SDL_DestroyRenderer(renderer); // ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ renderer
+	SDL_DestroyWindow(window); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¹ï¿½Òµï¿½Ò§ï¿½ï¿½ï¿½ï¿½ï¿½
 	TTF_Quit();
-	SDL_Quit(); // ÍÍ¡¨Ò¡â»Ãá¡ÃÁ
+	SDL_Quit(); // ï¿½Í¡ï¿½Ò¡ï¿½ï¿½ï¿½ï¿½ï¿½
 	return 0;
 }
 
