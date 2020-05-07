@@ -32,8 +32,8 @@ Finish: 7-May-2020</h6>
 <img src="src/page/game2.jpg" width="350px" height="230px">
 
 ## How to play (TH/EN) :bulb:
-- If turns left = 0 and monster still alive your character will be.
-- If time bar run out or you fail 3 times. The character will attack monster (damage depends on score).<br><br>
+- ในโหมดพัก จะมีเลือดมอนสเตอร์ จำนวนรอบที่เหลือแสดงให้ดูสามารถกด EnTer เพื่อเข้าสู่โหมดโจมตีได้ หากจำนวนรอบถึง 0 จะถือว่าแพ้ แล้วจะโดนมอนสเตอร์โจมตีทันที
+- ในโหมดโจมตี จะมีเวลาจำกัด ซึ่งดูได้จากหลอดด้านบน ถ้าหากหลอดเวลาหมด หรือกดพลาดครบ 3 ครั้งจะจบโหมดโจมตีทันที ซึ่งดาเมจจะขึ้นอยู่กับคะแนนที่ทำได้<br><br>
 <img src="src/page/game8.jpg" width="350px" height="230px"> <img src="src/page/game9.jpg" width="350px" height="230px">
 <img src="src/page/game6.jpg" width="350px" height="230px"> <img src="src/page/game7.jpg" width="350px" height="230px">
 
