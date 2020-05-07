@@ -340,7 +340,7 @@ int main(int argc, char* args[]) {
 	easy_background_surface = IMG_Load("background/easy_bg.png");   //Render Button
 	easy_background_texture = SDL_CreateTextureFromSurface(renderer, easy_background_surface);
 
-	medium_background_surface = IMG_Load("background/medium/medium_bg_4_sprite.png");   //Render Button
+	medium_background_surface = IMG_Load("background/medium_bg.png");   //Render Button
 	medium_background_texture = SDL_CreateTextureFromSurface(renderer, medium_background_surface);
 
 	hard_background_surface = IMG_Load("background/hard_bg.png");   //Render Button
