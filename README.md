@@ -41,5 +41,5 @@ Finish: 7-May-2020</h6>
 
 |<img src="src/img-member/61070196.jpg" width="130px" height="150px">|<img src="src/img-member/61070230.jpg" width="120px" height="150px">|<img src="src/img-member/61070270.jpg" width="120px" height="150px">|<img src="src/img-member/62070045.jpg" width="140px" height="150px">|
 |:---:|:---:|:---:|:---:|
-|[Poy](https://github.com/WorachetNimcharoen)|[jinnygym](https://github.com/jinnygym)|[arayaoil](https://github.com/ArayaThongleg)|[jeffy](https://github.com/jeffy34931)|
+|[WorachetNimcharoen](https://github.com/WorachetNimcharoen)|[jinnygym](https://github.com/jinnygym)|[ArayaThongleg](https://github.com/ArayaThongleg)|[jeffy34931](https://github.com/jeffy34931)|
 |นายวรเชษฐ์<br>นิ่มเจริญ<br>- 61070196 -|นางสาวศุภิสรา<br>ชีวนันทพร<br>- 61070230 -|นางสาวอารยา<br>ทองเล็ก<br>- 61070270 -|นายชวิน<br>โล่ห์รัตนเสน่ห์<br>- 62070045 -|
