@@ -12,8 +12,8 @@ Finish: 8-May-2020</h6>
 ฝึกสมาธิ ความอดทนและการตอบสนองของร่างกาย โดยใช้เกมในการทำให้อยากเล่น
 
 ## Video Presentation :clapper:
-<h4>link Video - </h4><br>
-- ใส่วีดีโอ ตรงนี้ 
+<h4>link Video - https://youtu.be/n2Cm-XP3bQM </h4><br>
+
 
 ## Built With :wrench:
 - C Language.
