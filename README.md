@@ -44,6 +44,5 @@ Finish: 8-May-2020</h6>
 |นายวรเชษฐ์<br>นิ่มเจริญ<br>- 61070196 -|นางสาวศุภิสรา<br>ชีวนันทพร<br>- 61070230 -|นางสาวอารยา<br>ทองเล็ก<br>- 61070270 -|นายชวิน<br>โล่ห์รัตนเสน่ห์<br>- 62070045 -|
 
 ## Special Thanks :pray:
--
--
--
+- https://www.pinterest.com/bibblespork/
+- https://lazyfoo.net/tutorials/SDL/
