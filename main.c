@@ -1,4 +1,4 @@
-#include <SDL.h> // ��Ŵ library SDL
+#include <SDL.h> // โหลด library SDL
 #include <SDL_image.h> // ��Ŵ library SDL_image
 #include <SDL_ttf.h>
 #include <stdio.h>  // ��Ŵ library stdio
