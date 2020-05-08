@@ -13,7 +13,7 @@ Finish: 8-May-2020</h6>
 
 ## Video Presentation :clapper:
 <h4>link Video - https://youtu.be/n2Cm-XP3bQM </h4><br>
-<a href="https://www.youtube.com/watch?v=n2Cm-XP3bQM"><img src="src/in-game/menu.gif" alt="Audition Quest"></a>
+<a href="https://youtu.be/n2Cm-XP3bQM"><img src="src/in-game/menu.gif" alt="Audition Quest"></a>
 
 ## Built With :wrench:
 - C Language.
